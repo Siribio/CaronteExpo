@@ -21,8 +21,6 @@ export type RootStackParamList = {
   ForgotPassword: undefined;
   Search:undefined;
   NewRide:undefined;
- 
-
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

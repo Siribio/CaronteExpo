@@ -11,7 +11,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Search'>;
 export default function Home({navigation}: Props) {
   return (
     <View style={tw`flex-1 bg-white`}>
-      <View style={tw`mt-15 justify-start h-20`}>
+      <View style={tw`mt-15 justify-start h-23`}>
         <Text style={tw`ml-5 text-4xl font-bold text-[#313131] `}>
           Buscar Caronas
         </Text>
