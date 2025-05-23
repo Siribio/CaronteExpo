@@ -38,7 +38,8 @@ function Profile({ navigation }: Props) {
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
+            <Text onPress={() => navigation.navigate('Financeiro')}
+              style={tw`py-8 text-2xl font-bold text-[#313131]`}>
               {'Financeiro'}
             </Text>
           </TouchableOpacity>
@@ -57,6 +58,11 @@ function Profile({ navigation }: Props) {
           <TouchableOpacity>
             <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
               {'Histórico de Carona'}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
+              {'Sair'}
             </Text>
           </TouchableOpacity>
         </View>

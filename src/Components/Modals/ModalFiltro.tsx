@@ -29,7 +29,7 @@ export default function ModalFiltro({ visible, onClose }: Props) {
               placeholder="Av. Afonso Da Silva"
               keyboardType="default"
               maxLength={99}
-              style={tw` border rounded-lg w-50`}
+              style={tw`border rounded-lg w-50`}
             >
             </TextInput>
         </View>
