@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, View,Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth, AuthProvider } from '../context/AuthContext'
@@ -10,15 +10,10 @@ import Profile from '../screens/Profile/Profile';
 import Login from '../screens/Login/Login';
 import Register from '../screens/Register/Register';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
-<<<<<<< HEAD
 import Search from '../screens/Search/Search';
 import NewRide from '../screens/NewRide/NewRide';
-=======
-import Search from '../screens/Search/Search'
-import NewRide from '../screens/NewRide/NewRide'
 import Financeiro from '../screens/Financial/Financeiro';
 // import tw from 'twrnc';
->>>>>>> feature/financeiro
 
 export type RootStackParamList = {
   Home: undefined;
@@ -26,15 +21,10 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   ForgotPassword: undefined;
-<<<<<<< HEAD
-  Search: undefined;
-  NewRide: undefined;
-=======
   Search:undefined;
   NewRide:undefined;
   Financeiro:undefined;
 
->>>>>>> feature/financeiro
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -52,7 +42,6 @@ function AppRoutes() {
 
   return (
     <NavigationContainer>
-<<<<<<< HEAD
       <Stack.Navigator initialRouteName={user ? 'Home' : 'Login'}>
         {!user ? (
           <>
@@ -68,7 +57,7 @@ function AppRoutes() {
             <Stack.Screen name="NewRide" component={NewRide} options={{ headerShown: false }} />
           </>
         )}
-=======
+        </Stack.Navigator>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
@@ -116,7 +105,6 @@ function AppRoutes() {
           name="Financeiro"
           component={Financeiro}
         />
->>>>>>> feature/financeiro
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -129,4 +117,5 @@ export default function Routes() {
     </AuthProvider>
   );
 }
+
 
