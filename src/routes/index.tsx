@@ -55,17 +55,10 @@ function AppRoutes() {
             <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
             <Stack.Screen name="Search" component={Search} options={{ headerShown: false }} />
             <Stack.Screen name="NewRide" component={NewRide} options={{ headerShown: false }} />
+            <Stack.Screen name="Financeiro" component={Financeiro}  />
           </>
         )}
         </Stack.Navigator>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-          }}
-        />
         <Stack.Screen
           name="Register"
           component={Register}
@@ -104,8 +97,8 @@ function AppRoutes() {
         <Stack.Screen
           name="Financeiro"
           component={Financeiro}
-        />
-      </Stack.Navigator>
+        >
+        </Stack.Screen>
     </NavigationContainer>
   );
 }

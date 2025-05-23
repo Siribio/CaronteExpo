@@ -60,7 +60,9 @@ function Profile({ navigation }: Props) {
               {'Histórico de Carona'}
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+          onPress={() => navigation.navigate('Login')}
+          >
             <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
               {'Sair'}
             </Text>
