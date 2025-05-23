@@ -1,9 +1,15 @@
 import React from "react";
 import {View, Text, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../routes';
 import tw from 'twrnc';
 
 
-export default function CardCarona(){
+const CardCarona = () => {
+
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
     let destino = "Casa do limão";
     let partida = "Casa do Jonas";
     let agend = "Segunda";
@@ -18,7 +24,7 @@ export default function CardCarona(){
           <View style={tw`flex-row m-1 items-center `}>
             <View style={tw`border-r-2 `}>
             <View
-              style={tw`flexmx-3 m-2 border border-[green] bg-[#C6FDB5] rounded w-4 h-35`}></View>
+              style={tw`m-2 border border-[green] bg-[#C6FDB5] rounded w-4 h-35`}></View>
                </View>
             <View style={tw`flex-1 `}>
               <View style={tw`flex-1 my-2 mx-1 `}>
@@ -55,7 +61,7 @@ export default function CardCarona(){
                 </Text>
               </View>
               <View style={tw`flex-1 my-2 mx-1 `}>
-                <TouchableOpacity
+                <TouchableOpacity onPress={()=> navigation.navigate('DetalhesCarona')}
                   style={tw`items-center justify-center h-8 w-25 bg-[#F1D014] border-2 border-[#676150] rounded-lg`}>
                   <Text style={tw`font-semibold text-base text-[#676150]`}>
                     {' '}
@@ -79,4 +85,7 @@ export default function CardCarona(){
         </View>
       </View>
     );
-}
+
+  }
+
+  export default CardCarona;

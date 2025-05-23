@@ -7,7 +7,7 @@ import CardCarona from '../../Components/Cards/CardCarona';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-export default function Home() {
+export default function Home({ navigation }: Props) {
   return (
     <View style={tw`flex-1 bg-white`}>
       <View style={tw` mt-15 ml-5 justify-start`}>
@@ -32,7 +32,7 @@ export default function Home() {
 
           <CardCarona />
 
-          <CardCarona />
+          <CardCarona  />
 
         </View>
 
