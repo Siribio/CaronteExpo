@@ -10,6 +10,7 @@ import ModalFidelidade from '../../Components/Modals/ModalFidelidade';
 import ModalProblemas from '../../Components/Modals/ModalProblemas';
 import ModalOutros from '../../Components/Modals/ModalOutros';
 import ModalAcessibilidade from '../../Components/Modals/ModalAcessibilidade';
+import { useAuth } from "../../context/AuthContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
@@ -20,6 +21,8 @@ function Profile({ navigation }: Props) {
   const [problemasVisible, setProblemasVisible] = useState(false);
   const [acessibilidadeVisible, setAcessibilidadeVisible] = useState(false);
   const [outrosVisible, setOutrosVisible] = useState(false);
+  const {signOut} = useAuth ();
+    
 
   return (
     <View style={tw`flex-1 bg-white`}>
@@ -29,7 +32,7 @@ function Profile({ navigation }: Props) {
         </Text>
       </View>
 
-      <View style={tw`flex-1 justify-center`}>
+      <View style={tw`flex-1 justify-center `}>
         <View style={tw`ml-4`}>
           <TouchableOpacity>
             <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
@@ -61,7 +64,7 @@ function Profile({ navigation }: Props) {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-          onPress={() => navigation.navigate('Login')}
+          onPress={signOut}
           >
             <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
               {'Sair'}
