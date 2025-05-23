@@ -13,6 +13,7 @@ import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
 import Search from '../screens/Search/Search';
 import NewRide from '../screens/NewRide/NewRide';
 import Financeiro from '../screens/Financial/Financeiro';
+import DetalhesCarona from '../screens/Detail/DetalhesCarona';
 // import tw from 'twrnc';
 
 export type RootStackParamList = {
@@ -24,6 +25,7 @@ export type RootStackParamList = {
   Search:undefined;
   NewRide:undefined;
   Financeiro:undefined;
+  DetalhesCarona:undefined;
 
 };
 
@@ -56,49 +58,10 @@ function AppRoutes() {
             <Stack.Screen name="Search" component={Search} options={{ headerShown: false }} />
             <Stack.Screen name="NewRide" component={NewRide} options={{ headerShown: false }} />
             <Stack.Screen name="Financeiro" component={Financeiro}  />
+            <Stack.Screen name="DetalhesCarona" component={DetalhesCarona}  />
           </>
         )}
         </Stack.Navigator>
-        <Stack.Screen
-          name="Register"
-          component={Register}
-          options={{
-            headerTitle: () => <Text>Cadastro</Text>,
-          }}
-        />
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen name="Profile" component={Profile}
-        options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Search"
-          component={Search}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="NewRide"
-          component={NewRide}
-          options={{
-            headerShown: false,
-          }}
-          >
-        </Stack.Screen>
-        <Stack.Screen
-          name="Financeiro"
-          component={Financeiro}
-        >
-        </Stack.Screen>
     </NavigationContainer>
   );
 }
