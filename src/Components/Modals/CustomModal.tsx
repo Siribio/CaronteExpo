@@ -33,7 +33,7 @@ const CustomModal = ({visible, onClose, title, children,actionButtonText, onActi
                 onPress={onActionPress}
                 style={tw`mr-3 px-4 py-2 bg-blue-500 rounded-lg border-4 border-[#0045AC]`}
               >
-                <Text style={tw`text-white  font-semibold`}>{actionButtonText}</Text>
+                <Text style={tw`text-white font-semibold`}>{actionButtonText}</Text>
               </Pressable>
             )}
 

@@ -10,6 +10,8 @@ import Register from '../screens/Register/Register';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
 import Search from '../screens/Search/Search'
 import NewRide from '../screens/NewRide/NewRide'
+import Financeiro from '../screens/Financial/Financeiro';
+// import tw from 'twrnc';
 
 
 // Definindo os tipos das rotas
@@ -21,6 +23,8 @@ export type RootStackParamList = {
   ForgotPassword: undefined;
   Search:undefined;
   NewRide:undefined;
+  Financeiro:undefined;
+
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -71,6 +75,10 @@ export default function Routes() {
           }}
           >
         </Stack.Screen>
+        <Stack.Screen
+          name="Financeiro"
+          component={Financeiro}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
