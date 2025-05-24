@@ -13,10 +13,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import tw from "twrnc";
 import { useAuth } from "../../context/AuthContext";
 import { RootStackParamList } from "../../routes";
+import ModalForgotPasswd from "../../Components/Modals/ModalForgotPasswd";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 export default function Login({ navigation }: Props) {
+  const [passwdVisible, setPasswdVisible] = useState(false);
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   const { signIn, loading } = useAuth();
@@ -94,7 +96,7 @@ export default function Login({ navigation }: Props) {
         {/* Links inferiores */}
         <View style={tw`flex-row justify-between mt-2`}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("ForgotPassword")}
+            onPress={() => setPasswdVisible(true)}
           >
             <Text style={tw`text-[#313131] font-style: italic `}>
               Esqueci minha senha
@@ -107,6 +109,10 @@ export default function Login({ navigation }: Props) {
             </Text>
           </TouchableOpacity>
         </View>
+        <ModalForgotPasswd
+                visible={passwdVisible}
+                onClose={() => setPasswdVisible(false)}
+              />
       </View>
     </KeyboardAvoidingView>
   );
