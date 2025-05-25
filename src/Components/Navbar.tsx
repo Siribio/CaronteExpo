@@ -4,6 +4,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import tw from 'twrnc';
 import { RootStackParamList } from '../routes';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useAuth } from '../context/AuthContext'; 
+
 
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
@@ -12,6 +14,7 @@ export default function Navbar() {
   const navigation = useNavigation<NavigationProps>();
   const route = useRoute();
   const current = route.name;
+  const { user } = useAuth();
 
   const navItems = [
     { name: 'Home', icon: 'format-list-bulleted', label: 'Caronas' },
@@ -20,10 +23,14 @@ export default function Navbar() {
     { name: 'Profile', icon: 'account', label: 'Perfil' },
   ];
 
+  const filteredNavItems = navItems.filter(item =>
+    item.name !== 'NewRide' || user?.tipo_usuario === 1
+  );
+
   return (
 
     <View style={tw`flex-row justify-around items-center py-3 border-t-4 border-[#998E6E] m-[10]`}>
-       {navItems.map((item) => {
+       {filteredNavItems.map((item) => {
         const isActive = current === item.name;
 
         return (
