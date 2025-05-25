@@ -11,8 +11,8 @@ export default function Searchbar() {
   const [filtroVisible, setFiltroVisible] = useState(false);
 
   return (
-    <View style={tw``}>
-      <View style={tw`flex-row justify-center gap-x-5 mt-2`}>
+    <View style={tw`mx-5`}>
+      <View style={tw`flex-row justify-center gap-x-2 mt-2`}>
         <View>
           <TextInput
             placeholder="Pesquise seu destino"
