@@ -4,6 +4,7 @@ import tw from 'twrnc';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Picker } from '@react-native-picker/picker';
 import { RootStackParamList } from '../../routes';
+import { registerUser } from './service/registerService';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
@@ -12,9 +13,10 @@ export default function Register({ navigation }: Props) {
     nome:'',
     sobrenome:'',
     cpf: '',
+    telefone: '',
     email: '',
     emailValidation: '',
-    dataNascimento: '',
+    data_nascimento: '',
     cep: '',
     tipoUsuario: 'Passageiro',
     tipoLimitacao: '',
@@ -23,8 +25,11 @@ export default function Register({ navigation }: Props) {
   });
 
   const handleRegister = () => {
+    const data = {...formData, nome: `${formData.nome} ${formData.sobrenome}`}
+    const response = registerUser(data)
+    console.log(response)
     // Verificação de campos obrrigatórios
-    if (!formData.cpf || !formData.email || !formData.dataNascimento) {
+    if (!formData.cpf || !formData.email || !formData.data_nascimento) {
       Alert.alert('Erro', 'Preencha os campos obrigatórios');
       return;
     }
@@ -56,7 +61,7 @@ export default function Register({ navigation }: Props) {
           <TextInput
             placeholder="Da Silva"
             value={formData.sobrenome}
-            onChangeText={(text) => setFormData({...formData, nome: text})}
+            onChangeText={(text) => setFormData({...formData, sobrenome: text})}
             style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
             keyboardType="default"
           />
@@ -73,7 +78,16 @@ export default function Register({ navigation }: Props) {
           />
         </View>
 
-        {/* Email */}
+        <View style={tw`mb-3`}>
+          <Text style={tw`text-gray-600 mb-1`}>Telefone</Text>
+            <TextInput
+              placeholder="11987654321"
+              value={formData.telefone}
+              onChangeText={(text) => setFormData({...formData, telefone: text})}
+              style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+              keyboardType="email-address"
+            />
+        </View>
 
         <View style={tw`mb-3`}>
           <Text style={tw`text-gray-600 mb-1`}>E-mail</Text>
@@ -101,8 +115,8 @@ export default function Register({ navigation }: Props) {
           <Text style={tw`text-gray-600 mb-1`}>Data de Nascimento</Text>
           <TextInput
             placeholder="DD/MM/AAAA"
-            value={formData.dataNascimento}
-            onChangeText={(text) => setFormData({...formData, dataNascimento: text})}
+            value={formData.data_nascimento}
+            onChangeText={(text) => setFormData({...formData, data_nascimento: text})}
             style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
             keyboardType="numeric"
           />
