@@ -5,6 +5,7 @@ import api from '../services/api';
 interface User {
   name: string;
   cpf: string;
+  id: number,
   tipo_usuario: number;
 }
 
@@ -44,13 +45,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const response = await api.post<any>('/login', { cpf, password });
     console.log(response)
     const { token: token } = response.data;
-    const { nome, cpf: cpfr, tipo_usuario } = response.data.sessionData;
+    const { nome, cpf: cpfr, tipo_usuario, id } = response.data.sessionData;
     const userData: User = {
+      id: id,
       name: nome,
       cpf: cpfr,
       tipo_usuario: tipo_usuario
     }
 
+    console.log(userData)
     setUser(userData);
     setToken(token);
     api.defaults.headers.Authorization = `Bearer ${token}`;
