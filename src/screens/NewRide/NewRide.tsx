@@ -15,7 +15,7 @@ import { Picker } from "@react-native-picker/picker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'NewRide'>;
 
-export default function NewRide({navigation, route}: Props) {
+export default function NewRide({navigation}: Props) {
   const [formData, setFormData] = useState({
     destino: "",
     distanciaDestino: "",
