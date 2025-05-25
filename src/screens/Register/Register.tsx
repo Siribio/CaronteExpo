@@ -62,6 +62,7 @@ export default function Register({ navigation }: Props) {
         return;
       }
       Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
+      navigation.navigate("Login")
     } catch (err) {}
   };
 
