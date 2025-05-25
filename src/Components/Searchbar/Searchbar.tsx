@@ -5,8 +5,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 export default function Searchbar() {
   return (
-    <View style={tw``}>
-      <View style={tw`flex-row justify-center gap-x-5 mt-2`}>
+    <View style={tw`mx-5`}>
+      <View style={tw`flex-row justify-center gap-x-2 mt-2`}>
         <View>
           <TextInput
             placeholder="Pesquise seu destino"
