@@ -13,7 +13,13 @@ import { Picker } from "@react-native-picker/picker";
 import { RootStackParamList } from "../../routes";
 import { registerUser } from "./service/registerService";
 import { buscarEnderecoPorCep } from "./util/getCep";
-import { formatCEP, formatCPF, formatDate, formatarDataParaISO, formatPhone } from "./util/masks";
+import {
+  formatCEP,
+  formatCPF,
+  formatDate,
+  formatarDataParaISO,
+  formatPhone,
+} from "./util/masks";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
@@ -45,7 +51,7 @@ export default function Register({ navigation }: Props) {
       status: true,
       tipo_usuario: formData.tipoUsuario === "Passageiro" ? 1 : 2,
       especificacoes_acessorio: formData.tipoLimitacao,
-      cpf: formData.cpf.replace(/\D/g, ""), 
+      cpf: formData.cpf.replace(/\D/g, ""),
       cep: formData.cep.replace(/\D/g, ""),
       telefone: formData.telefone.replace(/\D/g, ""),
       data_nascimento: formatarDataParaISO(formData.data_nascimento),
@@ -54,15 +60,21 @@ export default function Register({ navigation }: Props) {
     console.log(data);
     try {
       const endereco = await buscarEnderecoPorCep(formData.cep);
-      console.log(endereco);
-      const response = await registerUser(data);
-      console.log(response);
+      
       if (!formData.cpf || !formData.email || !formData.data_nascimento) {
         Alert.alert("Erro", "Preencha os campos obrigatórios");
         return;
       }
+
+      const response = await registerUser(data);
+      console.log(response)
+      if(response === 409){
+        Alert.alert("Erro", "O CPF já se encontra cadastrado")
+        return;
+      }
+
       Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
-      navigation.navigate("Login")
+      navigation.navigate("Login");
     } catch (err) {}
   };
 
