@@ -53,16 +53,6 @@ function Profile({ navigation }: Props) {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity>
-            <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
-              {'Feedback Carona'}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
-              {'Histórico de Carona'}
-            </Text>
-          </TouchableOpacity>
           <TouchableOpacity
           onPress={signOut}
           >
