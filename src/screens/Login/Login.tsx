@@ -32,7 +32,6 @@ export default function Login({ navigation }: Props) {
     setSubmitting(true);
     try {
       await signIn({ cpf, password });
-      Alert.alert("login feito com sucesso");
       //navigation.navigate("Home");
     } catch (error: any) {
       console.log(error);
@@ -45,7 +44,7 @@ export default function Login({ navigation }: Props) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "android" ? "padding" : "height"}
-      style={tw`flex-1 bg-gray-50`}
+      style={tw`flex-1 bg-[#F5F5F5]`}
     >
       <View style={tw`flex-1 justify-center px-8`}>
         <View style={tw`items-center mb-5`}>
@@ -56,31 +55,31 @@ export default function Login({ navigation }: Props) {
         </View>
 
         <View style={tw`items-center`}>
-          <Text style={tw`text-[#313131] font-semibold text-3xl`}>Login</Text>
+          <Text style={tw`text-[#313135] font-semibold text-3xl`}>Login</Text>
         </View>
 
         {/* Campo CPF */}
         <View style={tw`mb-4`}>
-          <Text style={tw`text-[#313131] mb-1`}>CPF</Text>
+          <Text style={tw`text-[#313135] mb-1`}>CPF</Text>
           <TextInput
             placeholder="Digite seu CPF"
             keyboardType="numeric"
             maxLength={11}
             value={cpf}
             onChangeText={setCpf}
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
           />
         </View>
 
         {/* Campo Senha */}
         <View style={tw`mb-6`}>
-          <Text style={tw`text-[#313131] mb-1`}>Senha</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Senha</Text>
           <TextInput
             placeholder="Digite sua senha"
             secureTextEntry
             value={password}
             onChangeText={setPassword}
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
           />
         </View>
 
@@ -88,7 +87,7 @@ export default function Login({ navigation }: Props) {
 
         <TouchableOpacity
           onPress={handleLogin}
-          style={tw`bg-[#676150] border-2 border-[#313131] py-3 rounded-lg mb-4`}
+          style={tw`bg-[#6E92C0] border-2 border-[#313135] py-3 rounded-lg mb-4`}
         >
           <Text style={tw`text-white text-center font-bold`}>Entrar</Text>
         </TouchableOpacity>
@@ -98,13 +97,13 @@ export default function Login({ navigation }: Props) {
           <TouchableOpacity
             onPress={() => setPasswdVisible(true)}
           >
-            <Text style={tw`text-[#313131] font-style: italic `}>
+            <Text style={tw`text-[#313135] font-style: italic `}>
               Esqueci minha senha
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <Text style={tw`text-[#313131] font-style: italic `}>
+            <Text style={tw`text-[#313135] font-style: italic `}>
               Cadastrar-se
             </Text>
           </TouchableOpacity>
