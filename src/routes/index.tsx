@@ -31,7 +31,7 @@ export type RootStackParamList = {
   Financeiro:undefined;
   DetalhesCarona: { carona: CaronaProps };
   RideHistory:undefined;
-  Chat: undefined;
+  Chat: { chatData: {id: number, id_passageiro: number} };
 
 
 };
