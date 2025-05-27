@@ -61,7 +61,6 @@ export default function Navbar() {
               color={isActive ? "#6E92C0" : "#313135"}
             />
             </View>
-
           </TouchableOpacity>
         );
       })}
