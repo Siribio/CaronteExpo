@@ -7,36 +7,31 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import tw from 'twrnc';
-import {RootStackParamList} from '../../routes';
-import Navbar from '../../Components/Navbar';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import tw from "twrnc";
+import { RootStackParamList } from "../../routes";
+import Navbar from "../../Components/Navbar";
 import { Picker } from "@react-native-picker/picker";
+import { AddressAutocomplete } from "./components/addressSearch";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'NewRide'>;
+type Props = NativeStackScreenProps<RootStackParamList, "NewRide">;
 
-export default function NewRide({navigation, route}: Props) {
+export default function NewRide({ navigation, route }: Props) {
   const [formData, setFormData] = useState({
     destino: "",
-    distanciaDestino: "",
     partida: "",
-    distanciaPartida: "",
     horarioChegada: "",
+    oferta: "",
     diaSemana: "Segunda-feira",
+    coordsPartida: { lat: "", lon: "" } as { lat: string; lon: string },
+    coordsDestino: { lat: "", lon: "" } as { lat: string; lon: string },
   });
 
-  const handleSubmit = () =>{
-    if (
-      !formData.destino ||
-      !formData.distanciaDestino ||
-      !formData.partida ||
-      !formData.distanciaPartida ||
-      !formData.horarioChegada
-    ){
+  const handleSubmit = () => {
+    if (!formData.destino || !formData.partida || !formData.horarioChegada) {
       return Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
     }
-        Alert.alert("Sucesso", "Carona criada com sucesso!");
-
+    Alert.alert("Sucesso", "Carona criada com sucesso!");
   };
 
   return (
@@ -48,54 +43,39 @@ export default function NewRide({navigation, route}: Props) {
       </View>
 
       <ScrollView style={tw` mx-4 p-1`}>
-        <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Destino</Text>
-          <TextInput
-            placeholder="Ex: Av. Paulista"
-            value={formData.destino}
-            onChangeText={(text) => setFormData({ ...formData, destino: text })}
-            style={tw`border-2 border-[#313131] rounded-lg p-3`}
-          />
-        </View>
-
-        <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Distância Máxima do Destino (km)</Text>
-          <TextInput
-            placeholder="Ex: 5"
-            value={formData.distanciaDestino}
-            onChangeText={(text) =>
-              setFormData({ ...formData, distanciaDestino: text })
-            }
-            keyboardType="numeric"
-            style={tw`border-2 border-[#313131] rounded-lg p-3`}
-          />
-        </View>
-
-        <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Partida</Text>
-          <TextInput
+        <View style={tw``}>
+          <AddressAutocomplete
+            label="Partida"
             placeholder="Ex: Terminal Lapa"
             value={formData.partida}
-            onChangeText={(text) => setFormData({ ...formData, partida: text })}
-            style={tw`border-2 border-[#313131] rounded-lg p-3`}
-          />
-        </View>
-
-        <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Distância Máxima da Partida (km)</Text>
-          <TextInput
-            placeholder="Ex: 3"
-            value={formData.distanciaPartida}
-            onChangeText={(text) =>
-              setFormData({ ...formData, distanciaPartida: text })
+            onChange={(text) => setFormData((f) => ({ ...f, partida: text }))}
+            onSelect={(s) =>
+              setFormData((f) => ({
+                ...f,
+                partida: s.display_name,
+                coordsPartida: { lat: s.lat, lon: s.lon },
+              }))
             }
-            keyboardType="numeric"
-            style={tw`border-2 border-[#313131] rounded-lg p-3`}
+          />
+
+          <AddressAutocomplete
+            label="Destino"
+            placeholder="Ex: Av. Paulista"
+            value={formData.destino}
+            onChange={(text) => setFormData((f) => ({ ...f, destino: text }))}
+            onSelect={(s) =>
+              setFormData((f) => ({
+                ...f,
+                destino: s.display_name,
+                coordsDestino: { lat: s.lat, lon: s.lon },
+              }))
+            }
           />
         </View>
-
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Horário de Chegada no Destino</Text>
+          <Text style={tw`text-gray-600 mb-1`}>
+            Horário de Chegada no Destino
+          </Text>
           <TextInput
             placeholder="HH:MM"
             value={formData.horarioChegada}
@@ -126,23 +106,36 @@ export default function NewRide({navigation, route}: Props) {
             </Picker>
           </View>
         </View>
+
+        <View style={tw`mb-3`}>
+          <Text style={tw`text-gray-600 mb-1`}>
+           Oferta em R$ 
+          </Text>
+          <TextInput
+            placeholder=""
+            value={formData.horarioChegada}
+            onChangeText={(text) =>
+              setFormData({ ...formData, horarioChegada: text })
+            }
+            keyboardType="numeric"
+            style={tw`border-2 border-[#313131] rounded-lg p-3`}
+          />
+        </View>
       </ScrollView>
-              <View style={tw`items-center`} >
-      <TouchableOpacity
-        onPress={handleSubmit}
-        style={tw`bg-[#676150] py-3 rounded-lg mb-6 w-80`}
-      >
-        <Text style={tw` text-white text-center font-bold text-lg`}>
-          Criar Carona
-        </Text>
-      </TouchableOpacity>
+      <View style={tw`items-center`}>
+        <TouchableOpacity
+          onPress={handleSubmit}
+          style={tw`bg-[#676150] py-3 rounded-lg mb-6 w-80`}
+        >
+          <Text style={tw` text-white text-center font-bold text-lg`}>
+            Criar Carona
+          </Text>
+        </TouchableOpacity>
       </View>
 
-
-              <View>
-              <Navbar/ >
-              </View>
-      
+      <View>
+        <Navbar />
       </View>
+    </View>
   );
 }
