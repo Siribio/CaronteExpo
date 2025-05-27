@@ -123,7 +123,7 @@ const Chat: React.FC<Props> = ({ route }) => {
   return (
     <KeyboardAvoidingView
       style={tw`flex-1 bg-white`}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "android" ? "padding" : undefined}
       keyboardVerticalOffset={100}
     >
       <View style={tw`flex-1`}>
@@ -139,7 +139,7 @@ const Chat: React.FC<Props> = ({ route }) => {
           />
         )}
 
-        <View style={tw`flex-row items-center border-t border-gray-300 px-3 py-2 mb-5`}>
+        <View style={tw`flex-row items-center border-t border-gray-300 px-3 py`}>
           <TextInput
             value={input}
             onChangeText={setInput}
