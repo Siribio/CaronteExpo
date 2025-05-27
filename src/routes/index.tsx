@@ -14,6 +14,7 @@ import Search from '../screens/Search/Search';
 import NewRide from '../screens/NewRide/NewRide';
 import Financeiro from '../screens/Financial/Financeiro';
 import DetalhesCarona from '../screens/Detail/DetalhesCarona';
+import RideHistory from '../screens/RideHistory/RideHistory';
 // import tw from 'twrnc';
 
 export type RootStackParamList = {
@@ -26,6 +27,7 @@ export type RootStackParamList = {
   NewRide:undefined;
   Financeiro:undefined;
   DetalhesCarona:undefined;
+  RideHistory:undefined;
 
 };
 
@@ -60,7 +62,8 @@ function AppRoutes() {
   <Stack.Screen name="NewRide" component={NewRide} options={{ headerShown: false }} />
 )}
             <Stack.Screen name="Financeiro" component={Financeiro}  />
-            <Stack.Screen name="DetalhesCarona" component={DetalhesCarona}  />
+            <Stack.Screen name="DetalhesCarona" component={DetalhesCarona}/>
+            <Stack.Screen name="RideHistory" component={RideHistory}/>
           </>
         )}
         </Stack.Navigator>

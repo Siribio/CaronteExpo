@@ -102,4 +102,3 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
 }
 
 export default CardCarona;
-
