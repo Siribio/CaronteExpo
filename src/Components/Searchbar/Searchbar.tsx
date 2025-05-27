@@ -2,7 +2,7 @@ import React ,{useState} from "react";
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import tw from "twrnc";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import ModalFiltro from "../Modals/ModalFiltro";
+import ModalFiltro from "../Modals/ModalFiltro/Index";
 
 
 

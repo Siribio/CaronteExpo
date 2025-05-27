@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   View,
   ScrollView,
@@ -14,7 +14,6 @@ import Navbar from "../../Components/Navbar";
 import { Picker } from "@react-native-picker/picker";
 import { AddressAutocomplete } from "./components/addressSearch";
 import { maskBRL, maskTime } from "./util/masks";
-import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createCarona } from "./service/ride";
 
