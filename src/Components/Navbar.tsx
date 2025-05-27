@@ -40,15 +40,11 @@ export default function Navbar() {
     { name: "Profile", icon: "account", label: "Perfil" },
   ];
 
-  const filteredNavItems = navItems.filter((item) =>
-    tipoUsuario === 2 ? item.name !== "NewRide" : true
-  );
-
   return (
     <View
       style={tw`flex-row justify-around items-center py-3 border-t-4 border-[#998E6E] m-[10]`}
     >
-      {filteredNavItems.map((item) => {
+      {navItems.map((item) => {
         const isActive = current === item.name;
 
         return (

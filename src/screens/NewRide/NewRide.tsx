@@ -13,24 +13,52 @@ import { RootStackParamList } from "../../routes";
 import Navbar from "../../Components/Navbar";
 import { Picker } from "@react-native-picker/picker";
 import { AddressAutocomplete } from "./components/addressSearch";
+import { maskBRL, maskTime } from "./util/masks";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createCarona } from "./service/ride";
 
 type Props = NativeStackScreenProps<RootStackParamList, "NewRide">;
 
 export default function NewRide({ navigation, route }: Props) {
+  
+  const [idUsuario, setIdUsuario] = useState<number | null>(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const storagedUser = await AsyncStorage.getItem("@App:user");
+      if (storagedUser) {
+        const parsed = JSON.parse(storagedUser);
+        setIdUsuario(parsed.id);
+      } else {
+        setIdUsuario(1);
+      }
+    };
+
+    fetchUser();
+  }, []);
   const [formData, setFormData] = useState({
-    destino: "",
-    partida: "",
-    horarioChegada: "",
+    local_destino_passageiro: "",
+    local_partida_passageiro: "",
+    horario_carona: "",
     oferta: "",
-    diaSemana: "Segunda-feira",
-    coordsPartida: { lat: "", lon: "" } as { lat: string; lon: string },
-    coordsDestino: { lat: "", lon: "" } as { lat: string; lon: string },
+    diaSemana: 1,
+    coords_partida: { lat: "", lon: "" } as { lat: string; lon: string },
+    coords_destino: { lat: "", lon: "" } as { lat: string; lon: string },
   });
 
-  const handleSubmit = () => {
-    if (!formData.destino || !formData.partida || !formData.horarioChegada) {
+  const handleSubmit = async () => {
+    if (!formData.local_destino_passageiro || !formData.local_partida_passageiro || !formData.horario_carona) {
       return Alert.alert("Erro", "Preencha todos os campos obrigatórios.");
     }
+    const oferta_final = formData.oferta.split("R$ ")[1].split(',')[0] + formData.oferta.split("R$ ")[1].split(',')[1]
+    const data = {
+      ...formData,
+      valor_oferta: Number(oferta_final),
+      status: 1,
+      id_passageiro: idUsuario as number
+    };
+    const response = await createCarona(data) 
+    console.log(response)
     Alert.alert("Sucesso", "Carona criada com sucesso!");
   };
 
@@ -47,13 +75,15 @@ export default function NewRide({ navigation, route }: Props) {
           <AddressAutocomplete
             label="Partida"
             placeholder="Ex: Terminal Lapa"
-            value={formData.partida}
-            onChange={(text) => setFormData((f) => ({ ...f, partida: text }))}
+            value={formData.local_partida_passageiro}
+            onChange={(text) =>
+              setFormData((f) => ({ ...f, local_partida_passageiro: text }))
+            }
             onSelect={(s) =>
               setFormData((f) => ({
                 ...f,
                 partida: s.display_name,
-                coordsPartida: { lat: s.lat, lon: s.lon },
+                coords_partida: { lat: s.lat, lon: s.lon },
               }))
             }
           />
@@ -61,13 +91,15 @@ export default function NewRide({ navigation, route }: Props) {
           <AddressAutocomplete
             label="Destino"
             placeholder="Ex: Av. Paulista"
-            value={formData.destino}
-            onChange={(text) => setFormData((f) => ({ ...f, destino: text }))}
+            value={formData.local_destino_passageiro}
+            onChange={(text) =>
+              setFormData((f) => ({ ...f, local_destino_passageiro: text }))
+            }
             onSelect={(s) =>
               setFormData((f) => ({
                 ...f,
                 destino: s.display_name,
-                coordsDestino: { lat: s.lat, lon: s.lon },
+                coords_destino: { lat: s.lat, lon: s.lon },
               }))
             }
           />
@@ -78,9 +110,9 @@ export default function NewRide({ navigation, route }: Props) {
           </Text>
           <TextInput
             placeholder="HH:MM"
-            value={formData.horarioChegada}
+            value={formData.horario_carona}
             onChangeText={(text) =>
-              setFormData({ ...formData, horarioChegada: text })
+              setFormData({ ...formData, horario_carona: maskTime(text) })
             }
             keyboardType="numeric"
             style={tw`border-2 border-[#313131] rounded-lg p-3`}
@@ -96,26 +128,24 @@ export default function NewRide({ navigation, route }: Props) {
                 setFormData({ ...formData, diaSemana: itemValue })
               }
             >
-              <Picker.Item label="Segunda-feira" value="Segunda-feira" />
-              <Picker.Item label="Terça-feira" value="Terça-feira" />
-              <Picker.Item label="Quarta-feira" value="Quarta-feira" />
-              <Picker.Item label="Quinta-feira" value="Quinta-feira" />
-              <Picker.Item label="Sexta-feira" value="Sexta-feira" />
-              <Picker.Item label="Sábado" value="Sábado" />
-              <Picker.Item label="Domingo" value="Domingo" />
+              <Picker.Item label="Segunda-feira" value={1} />
+              <Picker.Item label="Terça-feira" value={2} />
+              <Picker.Item label="Quarta-feira" value={3} />
+              <Picker.Item label="Quinta-feira" value={4} />
+              <Picker.Item label="Sexta-feira" value={5} />
+              <Picker.Item label="Sábado" value={6} />
+              <Picker.Item label="Domingo" value={7} />
             </Picker>
           </View>
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>
-           Oferta em R$ 
-          </Text>
+          <Text style={tw`text-gray-600 mb-1`}>Oferta em R$</Text>
           <TextInput
             placeholder=""
-            value={formData.horarioChegada}
+            value={formData.oferta}
             onChangeText={(text) =>
-              setFormData({ ...formData, horarioChegada: text })
+              setFormData({ ...formData, oferta: maskBRL(text) })
             }
             keyboardType="numeric"
             style={tw`border-2 border-[#313131] rounded-lg p-3`}
