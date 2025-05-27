@@ -12,7 +12,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Picker } from "@react-native-picker/picker";
 import { RootStackParamList } from "../../routes";
 import { registerUser } from "./service/registerService";
-import { buscarEnderecoPorCep } from "./util/getCep";
+import { obterCoordenadasPorCep } from "./util/getCep";
 import {
   formatCEP,
   formatCPF,
@@ -57,9 +57,10 @@ export default function Register({ navigation }: Props) {
       data_nascimento: formatarDataParaISO(formData.data_nascimento),
     };
 
+      const endereco = await obterCoordenadasPorCep(formData.cep);
     console.log(data);
+      console.log(endereco)
     try {
-      const endereco = await buscarEnderecoPorCep(formData.cep);
       
       if (!formData.cpf || !formData.email || !formData.data_nascimento) {
         Alert.alert("Erro", "Preencha os campos obrigatórios");
