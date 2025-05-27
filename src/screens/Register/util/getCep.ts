@@ -1,18 +1,35 @@
-export async function buscarEnderecoPorCep(cep: string) {
-  try {
-    const cepLimpo = cep.replace(/\D/g, '')
+type Coordenadas = {
+  latitude: number
+  longitude: number
+}
 
-    if (cepLimpo.length !== 8) throw new Error('CEP inválido')
+export async function obterCoordenadasPorCep(cep: string): Promise<Coordenadas> {
+  const viaCepResponse = await fetch(`https://viacep.com.br/ws/${cep.replace(/\D/g, '')}/json/`)
+  const endereco = await viaCepResponse.json()
 
-    const resposta = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
-    const dados = await resposta.json()
+  if (endereco.erro) {
+    throw new Error('CEP não encontrado no ViaCEP')
+  }
 
-    if (dados.erro) {
-      throw new Error('CEP não encontrado')
+  const enderecoCompleto = `${endereco.logradouro}, ${endereco.localidade}`
+
+  const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(enderecoCompleto)}&format=json&limit=1`
+  console.log(nominatimUrl)
+  const geoResponse = await fetch(nominatimUrl, {
+    headers: {
+      'User-Agent': 'SeuApp/1.0 (seuemail@exemplo.com)' 
     }
+  })
 
-    return dados 
-  } catch (erro: any) {
-    throw erro.message || 'Erro ao buscar CEP'
+  const geoData = await geoResponse.json()
+
+  if (!geoData.length) {
+    throw new Error('Endereço não localizado no Nominatim')
+  }
+  console.log(geoData)
+
+  return {
+    latitude: parseFloat(geoData[0].lat),
+    longitude: parseFloat(geoData[0].lon)
   }
 }
