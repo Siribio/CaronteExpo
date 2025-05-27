@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {View, Text, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../routes';
 import tw from 'twrnc';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ModalFeedback from "../Modals/ModalFeedback";
 
 
-const CardCarona = () => {
+const CardHistory = () => {
 
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [feedbackVisible, setFeedbackVisible] = useState(false);
 
     let destino = "Casa do limão";
     let partida = "Casa do Jonas";
@@ -16,7 +19,6 @@ const CardCarona = () => {
     let chegada = "10:30";
     let valor = "5,40";
     let data = "3";
-
 
     return (
       <View style={tw`items-center`}>
@@ -60,31 +62,61 @@ const CardCarona = () => {
                 </Text>
               </View>
               <View style={tw`flex-1 w-30 `}>
-                <TouchableOpacity onPress={()=> navigation.navigate('DetalhesCarona')}
+                <TouchableOpacity onPress={() => setFeedbackVisible(true)}
                   style={tw`items-center justify-center h-8 w-25 bg-[#6E92C0] border-2 border-[#313135] rounded-lg`}>
                   <Text style={tw`font-semibold text-base text-white`}>
                     {' '}
-                    Detalhes
+                    Feedback
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={tw`gap-y-4 w-33 items-center`}>
+            <View style={tw`gap-y-4 w-33 items-center `}>
               <View style={tw` justify-center items-center `}>
                 <Text style={tw`text-[#14AC00] text-2xl font-900 italic`}>
                   R$ {valor}
                 </Text>
               </View>
-
               <View style={tw` `}>
-                <Text style={tw`font-normal`}>Criada há {data} dias</Text>
+                <Text style={tw`font-normal`}>encerrada há {data} dias</Text>
               </View>
-            </View>
+              <View style={tw`flex-row self-end`}>
+                <MaterialCommunityIcons
+                name={"star"}
+                size={40}
+                color={'#F1D014'}
+                          />
+                          <MaterialCommunityIcons
+                name={"star"}
+                size={40}
+                color={'#F1D014'}
+                          />
+                          <MaterialCommunityIcons
+                name={"star"}
+                size={40}
+                color={'#F1D014'}
+                          />
+                          <MaterialCommunityIcons
+                name={"star"}
+                size={40}
+                color={'#F1D014'}
+                          />
+                          <MaterialCommunityIcons
+                name={"star"}
+                size={40}
+                color={'#F1D014'}
+                          />
+              </View>
+              </View>
           </View>
         </View>
+        <ModalFeedback
+                visible={feedbackVisible}
+                onClose={() => setFeedbackVisible(false)}
+              />
       </View>
     );
 
   }
 
-  export default CardCarona;
+  export default CardHistory;
