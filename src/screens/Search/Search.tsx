@@ -22,19 +22,7 @@ export default function Home({navigation}: Props) {
       
       <ScrollView style={tw`flex-1 mt-2`}>
         <View style={tw`items-center`}>
-          <CardCarona />
 
-          <CardCarona />
-
-          <CardCarona />
-
-          <CardCarona />
-
-          <CardCarona />
-
-          <CardCarona />
-
-          <CardCarona />
         </View>
       </ScrollView>
 

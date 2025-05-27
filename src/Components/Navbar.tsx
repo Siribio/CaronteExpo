@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <View
-      style={tw`flex-row justify-around items-center py-3 border-t-4 border-[#998E6E] m-[10]`}
+      style={tw`flex-row justify-around items-center py-3 border-t-4 border-[#313135] m-[10]`}
     >
       {navItems.map((item) => {
         const isActive = current === item.name;
@@ -54,11 +54,14 @@ export default function Navbar() {
               navigation.navigate(item.name as keyof RootStackParamList)
             }
           >
+            <View style={isActive? tw`rounded-lg p-2  bg-[#313135] border-lg`: tw`` }>
             <MaterialCommunityIcons
               name={item.icon}
-              size={50}
-              color={isActive ? "#F1D014" : "#998E6E"}
+              size={40}
+              color={isActive ? "#6E92C0" : "#313135"}
             />
+            </View>
+
           </TouchableOpacity>
         );
       })}
