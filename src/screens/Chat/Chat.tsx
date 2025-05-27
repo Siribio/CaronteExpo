@@ -139,7 +139,7 @@ const Chat: React.FC<Props> = ({ route }) => {
           />
         )}
 
-        <View style={tw`flex-row items-center border-t border-gray-300 px-3 py`}>
+        <View style={tw`flex-row items-center border-t border-gray-300 px-3 mb-5`}>
           <TextInput
             value={input}
             onChangeText={setInput}
