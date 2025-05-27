@@ -45,17 +45,17 @@ const Chat: React.FC = () => {
   return (
     <KeyboardAvoidingView
       style={tw`flex-1 bg-white`}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "android" ? "padding" : undefined}
       keyboardVerticalOffset={100}
     >
-      <View style={tw`flex-1`}>
+      <View style={tw`flex-1 `}>
         <FlatList
           data={messages}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={tw`pt-4 pb-2`}
         />
-        <View style={tw`flex-row items-center border-t border-gray-300 px-3 py-2 mb-5`}>
+        <View style={tw`flex-row items-center border-t border-gray-300 px-3 py-2`}>
           <TextInput
             value={input}
             onChangeText={setInput}
