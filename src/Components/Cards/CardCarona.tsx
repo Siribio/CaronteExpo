@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../routes';
 import tw from 'twrnc';
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 
 interface Coords {
   lat: string
@@ -37,6 +39,7 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
   const chegada = carona.horario_carona || '--:--';
   const valor = (carona.valor_oferta/100).toFixed(2).replace('.', ',');
   const data = carona.data_criacao ? ' X' : ' 3'; // você pode ajustar a lógica conforme necessário
+
 
   return (
       <View style={tw`items-center`}>
