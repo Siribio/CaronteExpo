@@ -3,6 +3,8 @@ import { ActivityIndicator, View,Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth, AuthProvider } from '../context/AuthContext'
+import { CaronaProps } from ".././types/Carona";
+
 
 // telas
 import Home from '../screens/Home/Home';
@@ -15,6 +17,7 @@ import NewRide from '../screens/NewRide/NewRide';
 import Financeiro from '../screens/Financial/Financeiro';
 import DetalhesCarona from '../screens/Detail/DetalhesCarona';
 import RideHistory from '../screens/RideHistory/RideHistory';
+import Chat from '../screens/Chat/Chat';
 // import tw from 'twrnc';
 
 export type RootStackParamList = {
@@ -26,8 +29,10 @@ export type RootStackParamList = {
   Search:undefined;
   NewRide:undefined;
   Financeiro:undefined;
-  DetalhesCarona:undefined;
+  DetalhesCarona: { carona: CaronaProps };
   RideHistory:undefined;
+  Chat: undefined;
+
 
 };
 
@@ -50,8 +55,8 @@ function AppRoutes() {
         {!user ? (
           <>
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-            <Stack.Screen name="Register" component={Register} options={{ headerTitle: () => <Text>Cadastro</Text> }} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="Register" component={Register} options={{ headerTitle: () => <Text>Voltar</Text> }} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerTitle: () => <Text>Cadastro</Text> }}  />
           </>
         ) : (
           <>
@@ -59,11 +64,12 @@ function AppRoutes() {
             <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
             <Stack.Screen name="Search" component={Search} options={{ headerShown: false }} />
             {user?.tipo_usuario === 1 && (
-  <Stack.Screen name="NewRide" component={NewRide} options={{ headerShown: false }} />
+            <Stack.Screen name="NewRide" component={NewRide} options={{ headerShown: false }} />
 )}
-            <Stack.Screen name="Financeiro" component={Financeiro}  />
-            <Stack.Screen name="DetalhesCarona" component={DetalhesCarona}/>
-            <Stack.Screen name="RideHistory" component={RideHistory}/>
+            <Stack.Screen name="Financeiro" component={Financeiro} options={{ headerTitle: () => <Text>Voltar</Text> }}  />
+            <Stack.Screen name="DetalhesCarona" component={DetalhesCarona} options={{ headerTitle: () => <Text>Voltar</Text> }}/>
+            <Stack.Screen name="RideHistory" component={RideHistory} options={{ headerTitle: () => <Text>Voltar</Text> }}/>
+            <Stack.Screen name="Chat" component={Chat} options={{ headerTitle: () => <Text>Voltar</Text> }} />
           </>
         )}
         </Stack.Navigator>

@@ -80,7 +80,7 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
                 </Text>
               </View>
               <View style={tw`flex-1 w-30 `}>
-                <TouchableOpacity onPress={() => navigation.navigate("DetalhesCarona")}
+                <TouchableOpacity onPress={() => navigation.navigate("DetalhesCarona", { carona })}
                   style={tw`items-center justify-center h-8 w-25 bg-[#6E92C0] border-2 border-[#313135] rounded-lg`}>
                   <Text style={tw`font-semibold text-base text-white`}>
                     {' '}

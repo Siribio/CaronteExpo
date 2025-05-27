@@ -3,23 +3,57 @@ import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import tw from "twrnc";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes";
-import Navbar from "../../Components/Navbar";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+// let data = "18/04/2025";
+// let valor = "10,00";
+// let origem = "Bairro do Limão";
+// let origemTempo = "10:09";
+// let destino = "Bairro da Liba";
+// let destinoTempo = "10:44";
+
+let motorista = "Memphis Depay";
+// let carro = "Fiat Uno";
+// let placaCarro = "COR1910";
+
+interface Coords {
+  lat: string;
+  lon: string;
+}
+
+interface CaronaProps {
+  id: number;
+  status: boolean;
+  local_destino_passageiro: string;
+  local_partida_passageiro: string;
+  valor_oferta: number;
+  dias: number | null;
+  horario_carona: string;
+  id_passageiro: number;
+  data_criacao: string | null;
+  ultima_atualizacao: string | null;
+  id_motorista: number | null;
+  local_destino_motorista: string | null;
+  local_partida_motorista: string | null;
+  coords_destino: Coords;
+  coords_partida: Coords;
+}
 
 type Props = NativeStackScreenProps<RootStackParamList, "DetalhesCarona">;
 
-let data = "18/04/2025";
-let valor = "10,00";
-let origem = "Bairro do Limão";
-let origemTempo = "10:09";
-let destino = "Bairro da Liba";
-let destinoTempo = "10:44";
+const DetalhesCarona: React.FC<Props> = ({ route }) => {
+  const { carona } = route.params;
+  const destino = carona.local_destino_passageiro || "Não informado";
+  const partida = carona.local_partida_passageiro || "Não informado";
+  const agend = carona.dias !== null ? `dia ${carona.dias}` : "semana";
+  const chegada = carona.horario_carona || "--:--";
+  const valor = (carona.valor_oferta / 100).toFixed(2).replace(".", ",");
+  const data = carona.data_criacao ? " X" : " aguardando";
 
-let motorista = "Memphis Depay";
-let carro = "Fiat Uno";
-let placaCarro = "COR1910";
+  const navigation = useNavigation();
 
 
-export default function DetalhesCarona() {
   return (
     <View style={tw`flex-1 bg-white`}>
       <View style={tw``}>
@@ -37,69 +71,76 @@ export default function DetalhesCarona() {
               <Text style={tw`text-base`}>{data}</Text>
             </View>
             <View style={tw``}>
-              <Text style={tw`text-3xl font-black italic text-[#14AC00]`}>R$ {valor}</Text>
+              <Text style={tw`text-3xl font-black italic text-[#14AC00]`}>
+                R$ {valor}
+              </Text>
             </View>
           </View>
         </View>
-        <View style={tw`border-t border-b mx-5 h-20 justify-center mt-5 gap-y-2 `}>
+        <View
+          style={tw`border-t border-b mx-5 h-20 justify-center mt-5 gap-y-2 `}
+        >
           <View style={tw`flex-row justify-between`}>
             <Text style={tw`font-semibold text-base`}>Origem:</Text>
             <View style={tw`flex-row`}>
-            <Text style={tw`font-semibold text-base `}>{origem}: </Text>
-            <Text style={tw`text-base italic`}>{origemTempo}</Text>
+              <Text style={tw`font-semibold text-base `}>{partida}: </Text>
+              <Text style={tw`text-base italic`}>{agend}</Text>
             </View>
           </View>
           <View style={tw`flex-row justify-between`}>
-            <Text style={tw`font-semibold text-base`}>Destinoo:</Text>
+            <Text style={tw`font-semibold text-base`}>Destino:</Text>
             <View style={tw`flex-row`}>
-            <Text style={tw`font-semibold text-base `}>{destino}: </Text>
-            <Text style={tw`text-base italic`}>{destinoTempo}</Text>
+              <Text style={tw`font-semibold text-base `}>{destino}: </Text>
+              <Text style={tw`text-base italic`}>{chegada}</Text>
             </View>
           </View>
         </View>
 
-        <View style={tw`border-b h-30 justify-center mx-5 gap-y-2`}>
+        <View style={tw`border-b justify-center mx-5 gap-y-2`}>
           <View style={tw` flex-row `}>
             <Text style={tw`font-semibold text-base`}>Nome do motorista:</Text>
             <Text style={tw` text-base italic`}> {motorista}</Text>
           </View>
-          <View style={tw`flex-row `}>
+          {/* <View style={tw`flex-row `}>
             <Text style={tw`font-semibold text-base`}>Modelo do carro:</Text>
             <Text style={tw` text-base italic`}> {carro}</Text>
           </View>
           <View style={tw`flex-row `}>
             <Text style={tw`font-semibold text-base`}>Placa do carro:</Text>
             <Text style={tw` text-base italic`}> {placaCarro}</Text>
+          </View> */}
+        </View>
+        <View style={tw`mx-5 mt-5`}>
+          <Text style={tw`font-bold text-xl`}>Chat da Carona</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Chat")}
+          style={tw`border-2 border-[#313135] rounded-lg w-30 h-10 items-center justify-center bg-[#20AF0D]`}>
+            <Text style={tw`text-lg font-semibold`}>Abrir Chat</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={tw`flex-1 mt-5 justify-end`}>
+          <View style={tw`flex-row mx-5 mt-5 h-40 justify-around`}>
+            <View style={tw``}>
+              <TouchableOpacity
+                style={tw`border-4 border-[#AC0000] bg-[#F07A7A] rounded-xl p-3 w-41 `}
+              >
+                <Text style={tw`text-xl text-[#AC0000] font-semibold px-5 `}>
+                  Cancelar
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={tw``}>
+              <TouchableOpacity 
+                style={tw`border-4 border-[#0045AC] bg-[#7AB1F0] rounded-xl p-3 w-41`}
+              >
+                <Text style={tw`text-xl text-[#0045AC] font-semibold `}>
+                  Nova proposta
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-          <View style={tw`mx-5 mt-5`}>
-            <View style={tw` h-20 `}>
-              <View style={tw`h-20 gap-y-1`}>
-                <Text style={tw`font-bold text-xl`}>
-                  Chat da Carona
-                </Text>
-              <TextInput
-                placeholder="Digite sua mensagem..."
-                style={tw`border-2 rounded-xl text-lg`}>
-              </TextInput>
-              </View>
-            </View>
-          </View>
-          <View style={tw`flex-1 mt-5 justify-end`}>
-            <View style={tw`flex-row mx-5 mt-5 h-40 justify-around`}>
-            <View style={tw``}>
-              <TouchableOpacity style={tw`border-4 border-[#AC0000] bg-[#F07A7A] rounded-xl p-3 w-41 `}>
-                <Text style={tw`text-xl text-[#AC0000] font-semibold px-5 `}>Cancelar</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={tw``}>
-              <TouchableOpacity style={tw`border-4 border-[#0045AC] bg-[#7AB1F0] rounded-xl p-3 w-41`}>
-                <Text style={tw`text-xl text-[#0045AC] font-semibold `}>Nova proposta</Text>
-              </TouchableOpacity>
-            </View>
-            </View>
-          </View>
       </View>
     </View>
   );
-}
+};
+export default DetalhesCarona;
