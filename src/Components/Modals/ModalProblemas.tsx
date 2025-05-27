@@ -12,15 +12,15 @@ export default function ModalProblemas({ visible, onClose }: Props) {
   return (
     <CustomModal visible={visible} onClose={onClose} title="Problemas">
       <TouchableOpacity style={tw`p-4 border-2 rounded my-1`}>
-        <Text style={tw`text-lg font-semibold`}>Carona anterior x</Text>
+        <Text style={tw`text-lg font-semibold`}>problema com aplicativo</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={tw`p-4 border-2 rounded my-1`}>
-        <Text style={tw`text-lg font-semibold`}>Carona anterior y</Text>
+        <Text style={tw`text-lg font-semibold`}>problema com motorista</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={tw`p-4 border-2 rounded my-1`}>
-        <Text style={tw`text-lg font-semibold`}>Carona anterior z</Text>
+        <Text style={tw`text-lg font-semibold`}>problema com trajeto</Text>
        </TouchableOpacity>
 
     </CustomModal>

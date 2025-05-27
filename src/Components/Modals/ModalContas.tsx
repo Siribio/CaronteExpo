@@ -16,7 +16,7 @@ export default function ModalContas({ visible, onClose }: Props) {
     title="Contas">
       <View>
         <TouchableOpacity style={tw`p-4 border-2 rounded my-1`}>
-          <Text style={tw`text-lg font-semibold`}>Não consigo realizar login</Text>
+          <Text style={tw`text-lg font-semibold`}>Atualizar dados de cadastro</Text>
         </TouchableOpacity>
         <TouchableOpacity style={tw`p-4 border-2 rounded my-1`}>
           <Text style={tw`text-lg font-semibold`}>Recibos e faturas</Text>
