@@ -5,6 +5,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import api from "../../services/api";
+import { useEffect } from "react";
 
 // let data = "18/04/2025";
 // let valor = "10,00";
@@ -44,6 +46,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "DetalhesCarona">;
 
 const DetalhesCarona: React.FC<Props> = ({ route }) => {
   const { carona } = route.params;
+  console.log(carona)
   const destino = carona.local_destino_passageiro || "Não informado";
   const partida = carona.local_partida_passageiro || "Não informado";
   const agend = carona.dias !== null ? `dia ${carona.dias}` : "semana";
@@ -52,6 +55,25 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
   const data = carona.data_criacao ? " X" : " aguardando";
 
   const navigation = useNavigation();
+  const id = carona.id || 1;
+    const [chat, setChat] = useState<any>();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await api.get<any>(`/chat/${id}/messages`);
+      console.log(response);
+      if (response.data) {
+        setChat(response.data);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const chatData = { id: carona.id, id_passageiro: carona.id_passageiro }
+  const handleChat = () => {
+   navigation.navigate("Chat", {chatData}) 
+  }
 
 
   return (
@@ -112,7 +134,7 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
         </View>
         <View style={tw`mx-5 mt-5`}>
           <Text style={tw`font-bold text-xl`}>Chat da Carona</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Chat")}
+          <TouchableOpacity onPress={() => handleChat()}
           style={tw`border-2 border-[#313135] rounded-lg w-30 h-10 items-center justify-center bg-[#20AF0D]`}>
             <Text style={tw`text-lg font-semibold`}>Abrir Chat</Text>
           </TouchableOpacity>
