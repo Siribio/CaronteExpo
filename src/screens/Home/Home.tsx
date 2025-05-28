@@ -4,7 +4,10 @@ import tw from "twrnc";
 import { RootStackParamList } from "../../routes";
 import Navbar from "../../Components/Navbar";
 import CardCarona from "../../Components/Cards/CardCarona";
-import { getCaronasPassageiro } from "../NewRide/service/ride";
+import {
+  getCaronasMotorista,
+  getCaronasPassageiro,
+} from "../NewRide/service/ride";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -15,8 +18,14 @@ export default function Home({ navigation }: Props) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await getCaronasPassageiro();
       const storagedUser = await AsyncStorage.getItem("@App:user");
+      let response;
+
+      if (JSON.parse(storagedUser || "").tipo_usuario === 1)
+        response = await getCaronasPassageiro();
+      if (JSON.parse(storagedUser || "").tipo_usuario === 2)
+        response = await getCaronasMotorista();
+
       console.log(response);
       if (response.data) {
         setCaronas(response.data);
