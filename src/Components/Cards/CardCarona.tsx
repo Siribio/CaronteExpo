@@ -74,8 +74,8 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
         ) : (
           <View style={tw` h-full w-3 rounded-l-[2.7] bg-[#e1b145] `}></View>
         )}
-        <View style={tw`flex-row  m-1 items-center w-85 justify-between `}>
-          <View style={tw`w-52 gap-y-1 `}>
+        <View style={tw`flex-row  m-1 items-center w-85 justify-between  `}>
+          <View style={tw` gap-y-1  `}>
             <View style={tw`mx-1 `}>
               <Text style={tw`text-regular font-semibold `}>
                 Destino:
@@ -110,6 +110,7 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
               </Text>
             </View>
             <View style={tw`flex-row gap-x-2 w-30 mb-1`}>
+              {(tipoUsuario === 1 || carona.id_motorista === userId) && (
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate("DetalhesCarona", { carona })
@@ -121,6 +122,7 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
                   Detalhes
                 </Text>
               </TouchableOpacity>
+              )}
               {tipoUsuario === 2 && carona.id_motorista === null && (
                 <TouchableOpacity
                   onPress={handleAceitar}
@@ -139,9 +141,9 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
                 R$ {valor}
               </Text>
             </View>
-            <View style={tw` `}>
-              <Text style={tw`font-normal`}>encerrada há {data} dias</Text>
-            </View>
+            {/* <View style={tw` `}>
+              <Text style={tw`font-normal`}>encerrada há {carona.data_criacao} dias</Text>
+            </View> */}
           </View>
         </View>
       </View>
