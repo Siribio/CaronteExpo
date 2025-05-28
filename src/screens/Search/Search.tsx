@@ -13,6 +13,7 @@ import api from "../../services/api";
 type Props = NativeStackScreenProps<RootStackParamList, "Search">;
 
 export default function Home({ navigation }: Props) {
+  const [filtrosAtivos, setFiltrosAtivos] = useState(false);
   const [caronas, setCaronas] = useState<any[]>([]);
   const [filtroVisible, setFiltroVisible] = useState(false);
 
@@ -23,18 +24,22 @@ export default function Home({ navigation }: Props) {
         coords_destino: formData.coords_destino,
         desvio_partida_m: Number(formData.desvio_partida_m),
         desvio_destino_m: Number(formData.desvio_destino_m),
-    horario_carona: formData.horario_carona,
-    valor_min: Number(formData.oferta),
-    dia_semana: Number(formData.dia_semana),
       });
       const data = resp.data as any[];
       await AsyncStorage.setItem("@App:caronasBuscadas", JSON.stringify(data));
       setCaronas(data);
+      setFiltrosAtivos(true);
     } catch (err) {
       console.error(err);
     } finally {
       setFiltroVisible(false);
     }
+  };
+
+  const limparFiltros = async () => {
+    await AsyncStorage.removeItem("@App:caronasBuscadas");
+    setCaronas([]);
+    setFiltrosAtivos(false);
   };
 
   useEffect(() => {
@@ -56,6 +61,16 @@ export default function Home({ navigation }: Props) {
             onClose={() => setFiltroVisible(false)}
             onSave={handleSearch}
           />
+          {filtrosAtivos && (
+            <View style={tw`items-end px-5 mt-2 shadow-lg`}>
+              <TouchableOpacity
+                style={tw`bg-red-500 px-4 py-2 rounded`}
+                onPress={limparFiltros}
+              >
+                <Text style={tw`text-white font-bold`}>Limpar filtros</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
 
@@ -69,7 +84,7 @@ export default function Home({ navigation }: Props) {
                 )
             )
           ) : (
-            <Text style={tw`text-gray-500 mt-10`}>
+            <Text style={tw`text-gray-500 mt-15`}>
               Nenhuma carona disponível no momento.
             </Text>
           )}
