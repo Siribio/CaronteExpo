@@ -62,9 +62,9 @@ export default function Home({ navigation }: Props) {
             onSave={handleSearch}
           />
           {filtrosAtivos && (
-            <View style={tw`items-end px-5 mt-2 shadow-lg`}>
+            <View style={tw`items-end px-5 mt-2 shadow-lg  `}>
               <TouchableOpacity
-                style={tw`bg-red-500 px-4 py-2 rounded`}
+                style={tw`bg-red-500 px-4 py-2 rounded `}
                 onPress={limparFiltros}
               >
                 <Text style={tw`text-white font-bold`}>Limpar filtros</Text>
@@ -74,7 +74,7 @@ export default function Home({ navigation }: Props) {
         </View>
       </View>
 
-      <ScrollView style={tw`flex-1 mt-5`}>
+      <ScrollView style={tw`flex-1 mt-18 `}>
         <View style={tw`items-center`}>
           {Array.isArray(caronas) && caronas.length > 0 ? (
             caronas.map(
@@ -84,7 +84,7 @@ export default function Home({ navigation }: Props) {
                 )
             )
           ) : (
-            <Text style={tw`text-gray-500 mt-15`}>
+            <Text style={tw`text-gray-500 mt-5`}>
               Nenhuma carona disponível no momento.
             </Text>
           )}

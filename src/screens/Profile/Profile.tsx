@@ -72,22 +72,22 @@ function Profile({ navigation }: Props) {
           <Text style={tw`text-2xl font-semibold`}>{user?.name??'Usuário'}</Text>
         </View>
         <View style={tw`mx-4 `}>
-          <TouchableOpacity 
+          {/* <TouchableOpacity 
           onPress={() => navigation.navigate("RideHistory")}
           >
             <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>
               {"Histórico da Carona"}
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Text
               onPress={() => navigation.navigate("Financeiro")}
               style={tw`py-8 text-2xl font-bold text-[#313131]`}
             >
               {"Financeiro"}
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity onPress={() => setAjudaVisible(true)}>
             <Text style={tw`py-8 text-2xl font-bold text-[#313131]`}>

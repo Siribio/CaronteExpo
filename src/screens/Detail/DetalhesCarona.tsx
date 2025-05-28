@@ -117,7 +117,7 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
           </View>
         </View>
 
-        <View style={tw`border-b justify-center mx-5 gap-y-2`}>
+        {/* <View style={tw`border-b justify-center mx-5 gap-y-2`}>
           <View style={tw` flex-row `}>
             <Text style={tw`font-semibold text-base`}>Nome do motorista:</Text>
             <Text style={tw` text-base italic`}> {motorista}</Text>
@@ -129,8 +129,8 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
           <View style={tw`flex-row `}>
             <Text style={tw`font-semibold text-base`}>Placa do carro:</Text>
             <Text style={tw` text-base italic`}> {placaCarro}</Text>
-          </View> */}
-        </View>
+          </View> 
+        </View>  */}
         <View style={tw`mx-5 mt-5 items-start`}>
           {id_motorista && (
             <TouchableOpacity
