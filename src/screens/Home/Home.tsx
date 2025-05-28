@@ -27,7 +27,7 @@ export default function Home({ navigation }: Props) {
     fetchUser();
   }, []);
   return (
-    <View style={tw`flex-1 bg-white`}>
+    <View style={tw`flex-1 bg-[#F5F5F5]`}>
       <View style={tw` mt-15 ml-5 justify-start`}>
         <Text style={tw`text-4xl font-bold text-[#313131]`}>
           Gerenciar Caronas

@@ -77,16 +77,16 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
 
 
   return (
-    <View style={tw`flex-1 bg-white`}>
+    <View style={tw`flex-1 bg-[#F5F5F5]`}>
       <View style={tw``}>
         <View style={tw`justify-start mt-2`}>
-          <Text style={tw`mx-5 text-4xl font-bold text-[#313131] `}>
+          <Text style={tw`mx-5 text-4xl font-bold text-[#313135] `}>
             Detalhes da Carona
           </Text>
         </View>
       </View>
       <View style={tw`flex-1 `}>
-        <View style={tw` mt-8`}>
+        <View style={tw` mt-8 `}>
           <View style={tw`flex-row mx-5 justify-between`}>
             <View style={tw`flex-row items-center`}>
               <Text style={tw`font-semibold text-base`}>Data da Carona: </Text>
@@ -105,8 +105,7 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
           <View style={tw`flex-row justify-between`}>
             <Text style={tw`font-semibold text-base`}>Origem:</Text>
             <View style={tw`flex-row`}>
-              <Text style={tw`font-semibold text-base `}>{partida}: </Text>
-              <Text style={tw`text-base italic`}>{agend}</Text>
+              <Text style={tw`font-semibold text-base `}>{partida}</Text>
             </View>
           </View>
           <View style={tw`flex-row justify-between`}>
@@ -132,29 +131,29 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
             <Text style={tw` text-base italic`}> {placaCarro}</Text>
           </View> */}
         </View>
-        <View style={tw`mx-5 mt-5`}>
-          <Text style={tw`font-bold text-xl`}>Chat da Carona</Text>
+        <View style={tw`mx-5 mt-5 items-start`}>
+          
           <TouchableOpacity onPress={() => handleChat()}
-          style={tw`border-2 border-[#313135] rounded-lg w-30 h-10 items-center justify-center bg-[#20AF0D]`}>
-            <Text style={tw`text-lg font-semibold`}>Abrir Chat</Text>
+          style={tw` bg-[#14AC00] border-[#14AC00] border  rounded-xl shadow-sm p-3`}>
+            <Text style={tw`text-lg font-semibold text-white`}>Abrir chat da carona</Text>
           </TouchableOpacity>
         </View>
         <View style={tw`flex-1 mt-5 justify-end`}>
           <View style={tw`flex-row mx-5 mt-5 h-40 justify-around`}>
             <View style={tw``}>
               <TouchableOpacity
-                style={tw`border-4 border-[#AC0000] bg-[#F07A7A] rounded-xl p-3 w-41 `}
+                style={tw`bg-[#F07A7A] border border-[#F07A7A] shadow-md rounded-xl shadow-sm p-3 `}
               >
-                <Text style={tw`text-xl text-[#AC0000] font-semibold px-5 `}>
+                <Text style={tw`text-xl text-white font-semibold px-5 `}>
                   Cancelar
                 </Text>
               </TouchableOpacity>
             </View>
             <View style={tw``}>
               <TouchableOpacity 
-                style={tw`border-4 border-[#0045AC] bg-[#7AB1F0] rounded-xl p-3 w-41`}
+                style={tw` bg-[#6E92C0] border-[#6E92C0] border  rounded-xl shadow-sm p-3`}
               >
-                <Text style={tw`text-xl text-[#0045AC] font-semibold `}>
+                <Text style={tw`text-xl text-white font-semibold `}>
                   Nova proposta
                 </Text>
               </TouchableOpacity>

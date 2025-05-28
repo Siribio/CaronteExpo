@@ -12,7 +12,7 @@ export default function ModalFidelidade({ visible, onClose }: Props) {
   return (
     <CustomModal visible={visible} onClose={onClose} title="Fidelidade">
       <TouchableOpacity style={tw`p-4 border-2 rounded my-1`}>
-          <Text style={tw`text-lg font-semibold`}>Planos de fidelidade</Text>
+          <Text style={tw`text-lg font-semibold`}>Rrealizar doação</Text>
         </TouchableOpacity>
     </CustomModal>
   );

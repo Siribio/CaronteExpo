@@ -62,18 +62,18 @@ export default function NewRide({ navigation, route }: Props) {
   };
 
   return (
-    <View style={tw`flex-1 bg-white`}>
+    <View style={tw`flex-1 bg-[#F5F5F5]`}>
       <View style={tw`mt-15 justify-start h-23`}>
-        <Text style={tw`ml-5 text-4xl font-bold text-[#313131] `}>
+        <Text style={tw`ml-5 text-4xl font-bold text-[#313135] `}>
           Criar Carona
         </Text>
       </View>
 
-      <ScrollView style={tw` mx-4 p-1`}>
+      <ScrollView style={tw` mx-5 p-1`}>
         <View style={tw``}>
           <AddressAutocomplete
             label="Partida"
-            placeholder="Ex: Terminal Lapa"
+            placeholder="Ex: Rua Fulano da Silva"
             value={formData.local_partida_passageiro}
             onChange={(text) =>
               setFormData((f) => ({ ...f, local_partida_passageiro: text }))
@@ -154,7 +154,7 @@ export default function NewRide({ navigation, route }: Props) {
       <View style={tw`items-center`}>
         <TouchableOpacity
           onPress={handleSubmit}
-          style={tw`bg-[#676150] py-3 rounded-lg mb-6 w-80`}
+          style={tw`bg-[#6E92C0] py-3 rounded-lg mb-6 w-80`}
         >
           <Text style={tw` text-white text-center font-bold text-lg`}>
             Criar Carona

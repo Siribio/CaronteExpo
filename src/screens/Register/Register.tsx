@@ -80,60 +80,60 @@ export default function Register({ navigation }: Props) {
   };
 
   return (
-    <ScrollView style={tw`flex-1 bg-gray-50 p-4 mb-5`}>
-      <Text style={tw`text-2xl font-bold mb-6 text-center text-[#676150]`}>
+    <ScrollView style={tw`flex-1 bg-[#F5F5F5] p-4 mb-5`}>
+      <Text style={tw`text-2xl font-bold mb-6 text-center text-[#6E92C0]`}>
         Cadastro
       </Text>
 
       {/* Seção de Dados Pessoais */}
       <View style={tw`mb-6 bg-white p-4 rounded-lg shadow-sm`}>
-        <Text style={tw`text-lg font-semibold mb-3 text-gray-600`}>
+        <Text style={tw`text-lg font-semibold mb-3 text-[#6E92C0]`}>
           Dados Pessoais
         </Text>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Nome</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Nome</Text>
           <TextInput
             placeholder="Cris"
             value={formData.nome}
             onChangeText={(text) => setFormData({ ...formData, nome: text })}
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             keyboardType="default"
           />
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Sobrenome</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Sobrenome</Text>
           <TextInput
             placeholder="Da Silva"
             value={formData.sobrenome}
             onChangeText={(text) =>
               setFormData({ ...formData, sobrenome: text })
             }
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             keyboardType="default"
           />
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>CPF</Text>
+          <Text style={tw`text-[#313135] mb-1`}>CPF</Text>
           <TextInput
             placeholder="000.000.000-00"
             value={formData.cpf}
             onChangeText={(text) =>
               setFormData({ ...formData, cpf: formatCPF(text) })
             }
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             keyboardType="numeric"
           />
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Senha</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Senha</Text>
           <TextInput
             value={formData.senha}
             onChangeText={(text) => setFormData({ ...formData, senha: text })}
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             secureTextEntry={true}
             textContentType="newPassword"
             keyboardType="default"
@@ -141,13 +141,13 @@ export default function Register({ navigation }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Confirmar Senha</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Confirmar Senha</Text>
           <TextInput
             value={formData.confirmar_senha}
             onChangeText={(text) =>
               setFormData({ ...formData, confirmar_senha: text })
             }
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             secureTextEntry={true}
             textContentType="password"
             keyboardType="default"
@@ -155,65 +155,65 @@ export default function Register({ navigation }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Telefone</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Telefone</Text>
           <TextInput
             placeholder="11987654321"
             value={formData.telefone}
             onChangeText={(text) =>
               setFormData({ ...formData, telefone: formatPhone(text) })
             }
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             keyboardType="email-address"
           />
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>E-mail</Text>
+          <Text style={tw`text-[#313135] mb-1`}>E-mail</Text>
           <TextInput
             placeholder="seu@email.com"
             value={formData.email}
             onChangeText={(text) => setFormData({ ...formData, email: text })}
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             keyboardType="email-address"
           />
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Confirme seu E-mail</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Confirme seu E-mail</Text>
           <TextInput
             placeholder="digite seu email novamente"
             value={formData.email}
             onChangeText={(text) =>
               setFormData({ ...formData, emailValidation: text })
             }
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             keyboardType="email-address"
           />
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Data de Nascimento</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Data de Nascimento</Text>
           <TextInput
             placeholder="DD/MM/AAAA"
             value={formData.data_nascimento}
             onChangeText={(text) =>
               setFormData({ ...formData, data_nascimento: formatDate(text) })
             }
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             textContentType="birthdate"
             keyboardType="numeric"
           />
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>CEP</Text>
+          <Text style={tw`text-[#313135] mb-1`}>CEP</Text>
           <TextInput
             placeholder="00000-000"
             value={formData.cep}
             onChangeText={(text) =>
               setFormData({ ...formData, cep: formatCEP(text) })
             }
-            style={tw`border-2 border-[#313131] rounded-lg p-3 bg-white`}
+            style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             keyboardType="numeric"
           />
         </View>
@@ -221,11 +221,11 @@ export default function Register({ navigation }: Props) {
 
       {/* Seção de Tipo de Usuário */}
       <View style={tw`mb-6 bg-white p-4 rounded-lg shadow-sm`}>
-        <Text style={tw`text-lg font-semibold mb-3 text-gray-700`}>
+        <Text style={tw`text-lg font-semibold mb-3 text-[#6E92C0]`}>
           Tipo de Usuário
         </Text>
 
-        <View style={tw`border-2 border-[#313131] rounded-lg mb-3`}>
+        <View style={tw`border-2 border-[#313135] rounded-lg mb-3`}>
           <Picker
             selectedValue={formData.tipoUsuario}
             onValueChange={(itemValue) =>
@@ -239,8 +239,8 @@ export default function Register({ navigation }: Props) {
 
         {formData.tipoUsuario === "Passageiro" && (
           <View style={tw`mt-3`}>
-            <Text style={tw`text-gray-600 mb-1`}>Tipo de Limitação</Text>
-            <View style={tw`border-2 border-[#313131] rounded-lg mb-3`}>
+            <Text style={tw`text-[#313135] mb-1`}>Tipo de Limitação</Text>
+            <View style={tw`border-2 border-[#313135] rounded-lg mb-3`}>
               <Picker
                 selectedValue={formData.tipoLimitacao}
                 onValueChange={(itemValue) =>
@@ -280,8 +280,8 @@ export default function Register({ navigation }: Props) {
 
         {formData.tipoUsuario === "Motorista" && (
           <View style={tw`mt-3`}>
-            <Text style={tw`text-gray-600 mb-1`}>Tipo de Veiculo</Text>
-            <View style={tw`border-2 border-[#313131] rounded-lg mb-3`}>
+            <Text style={tw`text-[#313135] mb-1`}>Tipo de Veiculo</Text>
+            <View style={tw`border-2 border-[#313135] rounded-lg mb-3`}>
               <Picker
                 selectedValue={formData.tipoVeiculo}
                 onValueChange={(itemValue) =>
@@ -300,7 +300,7 @@ export default function Register({ navigation }: Props) {
       {/* Botão de Cadastro */}
       <TouchableOpacity
         onPress={handleRegister}
-        style={tw`bg-[#676150] py-3 rounded-lg mb-6`}
+        style={tw`bg-[#6E92C0] py-3 rounded-lg mb-6`}
       >
         <Text style={tw`text-white text-center font-bold`}>
           Finalizar Cadastro
