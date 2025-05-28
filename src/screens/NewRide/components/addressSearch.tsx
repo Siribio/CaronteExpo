@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  Keyboard,
+  Keyboard
 } from 'react-native'
 import tw from 'twrnc'
 
@@ -37,106 +37,93 @@ export function AddressAutocomplete({
   placeholder,
   value,
   onChange,
-  onSelect,
+  onSelect
 }: Props) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
-  const [open, setOpen] = useState(false)
-  const timer = useRef<ReturnType<typeof setTimeout>>()
-  const blurTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const fetchTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    if (timer.current) clearTimeout(timer.current)
+    // limpa timers anteriores
+    if (fetchTimer.current) clearTimeout(fetchTimer.current)
+    if (hideTimer.current) clearTimeout(hideTimer.current)
 
+    // se menos de 3 caracteres, limpa sugestões
     if (value.length < 3) {
       setSuggestions([])
-      setOpen(false)
       return
     }
 
-    timer.current = setTimeout(async () => {
+    // debounce fetch de sugestões
+    fetchTimer.current = setTimeout(async () => {
       try {
-        const url = [
-          'https://nominatim.openstreetmap.org/search',
-          `?q=${encodeURIComponent(value)}`,
-          '&format=json',
-          '&limit=5',
-          '&addressdetails=1',
-        ].join('')
-
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          value
+        )}&format=json&limit=5&addressdetails=1`
         const res = await fetch(url, {
-          headers: { 'User-Agent': 'SeuApp/1.0 (seu@email.com)' },
+          headers: { 'User-Agent': 'YourApp/1.0 (email@example.com)' }
         })
         const data: Suggestion[] = await res.json()
         setSuggestions(data)
-        if (data.length > 0) setOpen(true)
       } catch {
         setSuggestions([])
-        setOpen(false)
       }
-    }, 500)
+    }, 400)
+
+    // timer para esconder sugestões após 5s de inatividade
+    hideTimer.current = setTimeout(() => {
+      setSuggestions([])
+    }, 5000)
 
     return () => {
-      if (timer.current) clearTimeout(timer.current)
+      if (fetchTimer.current) clearTimeout(fetchTimer.current)
+      if (hideTimer.current) clearTimeout(hideTimer.current)
     }
   }, [value])
 
-  const handleBlur = () => {
-    // Espera um tempo antes de fechar para permitir clique na sugestão
-    blurTimeout.current = setTimeout(() => setOpen(false), 200)
-  }
-
-  const handleFocus = () => {
-    if (value.length >= 3 && suggestions.length > 0) {
-      setOpen(true)
-    }
-    if (blurTimeout.current) clearTimeout(blurTimeout.current)
-  }
-
-  const renderItem = ({ item }: { item: Suggestion }) => {
+  const handleSelect = (item: Suggestion) => {
     const rua = item.address.road || item.address.neighbourhood || item.address.suburb || ''
     const cidade = item.address.city || item.address.town || item.address.village || ''
     const estado = item.address.state || ''
     const cep = item.address.postcode || ''
-
-    const parts = []
-    if (rua.trim()) parts.push(rua.trim())
-    if (cidade.trim()) parts.push(cidade.trim())
-    if (estado.trim()) parts.push(estado.trim())
+    const parts = [rua.trim(), cidade.trim(), estado.trim()].filter(Boolean)
     const base = parts.join(', ')
     const display = cep ? `${base} - ${cep}` : base
-
-    return (
-      <TouchableOpacity
-        style={tw`px-3 py-2 border-b border-gray-200`}
-        onPress={() => {
-          onSelect({ ...item, display })
-          setOpen(false)
-          Keyboard.dismiss()
-        }}
-      >
-        <Text>{display}</Text>
-      </TouchableOpacity>
-    )
+    onSelect({ ...item, display })
+    setSuggestions([])
+    Keyboard.dismiss()
   }
 
   return (
-    <View style={tw`mb-4`}>
+    <View style={tw`mb-4 relative`}>
       <Text style={tw`text-gray-600 mb-1`}>{label}</Text>
       <TextInput
         placeholder={placeholder}
         value={value}
         onChangeText={onChange}
         style={tw`border-2 border-[#313131] rounded-lg p-3`}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        autoCorrect={false}
+        autoComplete="off"
       />
-      {open && suggestions.length > 0 && (
-        <View style={tw`bg-white border border-gray-300 rounded-lg max-h-40 mt-1`}>
+      {suggestions.length > 0 && (
+        <View
+          style={tw`absolute top-14 w-full bg-white border border-gray-300 rounded-lg z-20 max-h-40`}
+        >
           <FlatList
             keyboardShouldPersistTaps="handled"
             data={suggestions}
             keyExtractor={(item) => item.lat + item.lon}
-            renderItem={renderItem}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onMouseDown={() => handleSelect(item) as any}
+                onPress={() => handleSelect(item)}
+                style={tw`px-3 py-2 border-b border-gray-200`}
+              >
+                <Text>
+                  {item.address.road || item.address.neighbourhood || item.address.suburb}, {item.address.city}, {item.address.state}
+                </Text>
+              </TouchableOpacity>
+            )}
           />
         </View>
       )}
@@ -145,3 +132,4 @@ export function AddressAutocomplete({
 }
 
 export default AddressAutocomplete
+

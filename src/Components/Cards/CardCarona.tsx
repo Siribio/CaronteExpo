@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity,Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../routes';
-import tw from 'twrnc';
+import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../routes";
+import tw from "twrnc";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../services/api";
 
@@ -31,11 +31,12 @@ interface CaronaProps {
 }
 
 const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [tipoUsuario, setTipoUsuario] = useState<number | null>(null);
   const [userId, setUserId] = useState<number | null>(null);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchUser = async () => {
       const userData = await AsyncStorage.getItem("@App:user");
       if (userData) {
@@ -49,10 +50,7 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
 
   const handleAceitar = async () => {
     try {
-      await api.post("/carona/aceitar", {
-        id_carona: carona.id,
-        id_motorista: userId,
-      });
+      await api.patch(`/setMotorista/${carona.id}`, { id_motorista: userId });
       Alert.alert("Carona aceita com sucesso!");
     } catch (err) {
       console.error(err);
@@ -66,11 +64,16 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
   const chegada = carona.horario_carona || "--:--";
   const valor = (carona.valor_oferta / 100).toFixed(2).replace(".", ",");
   const data = carona.data_criacao ? " X" : " 3"; // você pode ajustar a lógica conforme necessário
+  const id_motorista = carona.id_motorista;
 
   return (
     <View style={tw` items-center `}>
       <View style={tw`flex-row mt-5 bg-white border w-95 rounded-xl shadow-md`}>
-        <View style={tw` h-full w-3 rounded-l-[2.7] bg-[#2BD45E] `}></View>
+        {id_motorista ? (
+          <View style={tw` h-full w-3 rounded-l-[2.7] bg-[#2BD45E] `}></View>
+        ) : (
+          <View style={tw` h-full w-3 rounded-l-[2.7] bg-[#e1b145] `}></View>
+        )}
         <View style={tw`flex-row  m-1 items-center w-85 justify-between `}>
           <View style={tw`w-52 gap-y-1 `}>
             <View style={tw`mx-1 `}>
@@ -121,8 +124,11 @@ const CardCarona: React.FC<{ carona: CaronaProps }> = ({ carona }) => {
               {tipoUsuario === 2 && carona.id_motorista === null && (
                 <TouchableOpacity
                   onPress={handleAceitar}
-                  style={tw`items-center justify-center p-2 mt-2 w-25 bg-[#F07A7A] rounded-lg`}>
-                  <Text style={tw`font-semibold text-base text-white`}>Aceitar</Text>
+                  style={tw`items-center justify-center p-2 mt-2 w-25 bg-[#F07A7A] rounded-lg`}
+                >
+                  <Text style={tw`font-semibold text-base text-white`}>
+                    Aceitar
+                  </Text>
                 </TouchableOpacity>
               )}
             </View>
