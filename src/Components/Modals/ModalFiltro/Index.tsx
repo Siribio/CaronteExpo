@@ -152,6 +152,19 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
+          <Text style={tw`text-gray-600 mb-1`}>Oferta Máxima em R$</Text>
+          <TextInput
+            placeholder="Ex: R$ 10,00"
+            value={formData.oferta}
+            onChangeText={(text) =>
+              setFormData((f) => ({ ...f, oferta: maskBRL(text) }))
+            }
+            keyboardType="numeric"
+            style={tw`border-2 border-[#313131] rounded-lg p-3`}
+          />
+        </View>
+
+        <View style={tw`mb-3`}>
           <Text style={tw`text-gray-600 mb-1`}>Dia da Semana</Text>
           <View style={tw`border-2 border-[#313131] rounded-lg  h-12 justify-center`}>
             <Picker
@@ -171,18 +184,6 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
           </View>
         </View>
 
-        <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Oferta Máxima em R$</Text>
-          <TextInput
-            placeholder="Ex: R$ 10,00"
-            value={formData.oferta}
-            onChangeText={(text) =>
-              setFormData((f) => ({ ...f, oferta: maskBRL(text) }))
-            }
-            keyboardType="numeric"
-            style={tw`border-2 border-[#313131] rounded-lg p-3`}
-          />
-        </View>
       </View>
     </CustomModal>
   );
