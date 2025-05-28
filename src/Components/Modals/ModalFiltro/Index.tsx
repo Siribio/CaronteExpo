@@ -5,6 +5,7 @@ import CustomModal from "../CustomModal";
 import { AddressAutocomplete } from "../../../screens/NewRide/components/addressSearch";
 import { maskBRL, maskTime } from "../../../screens/NewRide/util/masks";
 import { Picker } from "@react-native-picker/picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../../services/api";
 
 type Coords = { lat: string; lon: string };
@@ -28,12 +29,12 @@ type Props = {
 };
 
 const DESVIOS = [
-  { label: "250 metros", value: 250 },
-  { label: "500 metros", value: 500 },
-  { label: "1 km", value: 1000 },
-  { label: "1,5 km", value: 1500 },
-  { label: "2 km", value: 2000 },
-  { label: "3 km", value: 3000 },
+  { label: "250 metros", value: 750 },
+  { label: "500 metros", value: 1250 },
+  { label: "1 km", value: 2000 },
+  { label: "1,5 km", value: 2500 },
+  { label: "2 km", value: 3000 },
+  { label: "3 km", value: 4500 },
 ];
 
 export default function ModalFiltro({ visible, onClose, onSave }: Props) {
@@ -45,55 +46,24 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
     diaSemana: 1,
     coords_partida: { lat: "", lon: "" },
     coords_destino: { lat: "", lon: "" },
-    desvio_partida_m: "250 metros",
-    desvio_destino_m: "250 metros",
+    desvio_partida_m: "250",
+    desvio_destino_m: "250",
   });
-
-  const [caronas, setCaronas] = useState<any>();
-
-  const fetchUser = async () => {
-    const response = await api.post("/searchCarona", {
-      coords_partida: formData.coords_partida,
-      coords_destino: formData.coords_destino,
-      desvio_partida_m: Number(formData.desvio_partida_m),
-      desvio_destino_m: Number(formData.desvio_destino_m),
-    });
-    console.log(response);
-    if (response.data) {
-      setCaronas(response.data);
-    }
-    console.log(caronas);
-  };
 
   const handleSave = () => {
     if (
       !formData.local_partida_passageiro ||
       !formData.local_destino_passageiro
     ) {
-      return Alert.alert("Preencha ao menos os campos de partida e destino.");
+      return Alert.alert(
+        "Erro",
+        "Preencha ao menos os campos de partida e destino."
+      );
     }
 
-    console.log("Filtro salvo:", formData);
-    if (onSave) onSave(formData);
-    fetchUser();
-    onClose();
+    onSave(formData || {}); 
+    onClose(); 
   };
-
-  useEffect(() => {
-    if (!visible) {
-      setFormData({
-        local_destino_passageiro: "",
-        local_partida_passageiro: "",
-        horario_carona: "",
-        oferta: "",
-        diaSemana: 1,
-        coords_partida: { lat: "", lon: "" },
-        coords_destino: { lat: "", lon: "" },
-        desvio_partida_m: "250 metros",
-        desvio_destino_m: "250 metros",
-      });
-    }
-  }, [visible]);
 
   return (
     <CustomModal
