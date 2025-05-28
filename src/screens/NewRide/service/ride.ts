@@ -10,7 +10,7 @@ export interface FormData {
   local_partida_passageiro: string;
   horario_carona: string;
   oferta: string;
-  diaSemana: number;
+  dia_semana: number;
   coords_partida: Coord;
   coords_destino: Coord;
   status: number;
