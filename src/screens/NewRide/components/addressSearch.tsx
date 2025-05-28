@@ -42,13 +42,17 @@ export function AddressAutocomplete({
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [open, setOpen] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout>>()
+  const blurTimeout = useRef<ReturnType<typeof setTimeout>>()
 
   useEffect(() => {
     if (timer.current) clearTimeout(timer.current)
+
     if (value.length < 3) {
       setSuggestions([])
+      setOpen(false)
       return
     }
+
     timer.current = setTimeout(async () => {
       try {
         const url = [
@@ -64,7 +68,7 @@ export function AddressAutocomplete({
         })
         const data: Suggestion[] = await res.json()
         setSuggestions(data)
-        setOpen(true)
+        if (data.length > 0) setOpen(true)
       } catch {
         setSuggestions([])
         setOpen(false)
@@ -75,6 +79,18 @@ export function AddressAutocomplete({
       if (timer.current) clearTimeout(timer.current)
     }
   }, [value])
+
+  const handleBlur = () => {
+    // Espera um tempo antes de fechar para permitir clique na sugestão
+    blurTimeout.current = setTimeout(() => setOpen(false), 200)
+  }
+
+  const handleFocus = () => {
+    if (value.length >= 3 && suggestions.length > 0) {
+      setOpen(true)
+    }
+    if (blurTimeout.current) clearTimeout(blurTimeout.current)
+  }
 
   const renderItem = ({ item }: { item: Suggestion }) => {
     const rua = item.address.road || item.address.neighbourhood || item.address.suburb || ''
@@ -87,9 +103,7 @@ export function AddressAutocomplete({
     if (cidade.trim()) parts.push(cidade.trim())
     if (estado.trim()) parts.push(estado.trim())
     const base = parts.join(', ')
-    const display = cep
-      ? `${base} - ${cep}`
-      : base
+    const display = cep ? `${base} - ${cep}` : base
 
     return (
       <TouchableOpacity
@@ -113,12 +127,11 @@ export function AddressAutocomplete({
         value={value}
         onChangeText={onChange}
         style={tw`border-2 border-[#313131] rounded-lg p-3`}
-        onFocus={() => value.length >= 3 && setOpen(true)}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
       {open && suggestions.length > 0 && (
-        <View
-          style={tw`bg-white border border-gray-300 rounded-lg max-h-40 mt-1`}
-        >
+        <View style={tw`bg-white border border-gray-300 rounded-lg max-h-40 mt-1`}>
           <FlatList
             keyboardShouldPersistTaps="handled"
             data={suggestions}
@@ -132,4 +145,3 @@ export function AddressAutocomplete({
 }
 
 export default AddressAutocomplete
-

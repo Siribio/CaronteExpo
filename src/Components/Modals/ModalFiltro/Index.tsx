@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TextInput, ScrollView, Alert } from "react-native";
+import { Text, View, TextInput, ScrollView, Alert, KeyboardAvoidingView,Platform} from "react-native";
 import tw from "twrnc";
 import CustomModal from "../CustomModal";
 import { AddressAutocomplete } from "../../../screens/NewRide/components/addressSearch";
@@ -90,10 +90,10 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
           }
         />
 
-        <Text style={tw`text-gray-600 mb-1 mt-2`}>
+        <Text style={tw`text-gray-600 mb-1 `}>
           Desvio Máximo da Partida
         </Text>
-        <View style={tw`border-2 border-[#313131] rounded-lg mb-3`}>
+        <View style={tw`border-2 border-[#313131] rounded-lg mb-2 h-12 justify-center`}>
           <Picker
             selectedValue={formData.desvio_partida_m}
             onValueChange={(value) =>
@@ -122,10 +122,10 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
           }
         />
 
-        <Text style={tw`text-gray-600 mb-1 mt-2`}>
+        <Text style={tw`text-gray-600 mb-1 `}>
           Desvio Máximo do Destino
         </Text>
-        <View style={tw`border-2 border-[#313131] rounded-lg mb-3`}>
+        <View style={tw`border-2 border-[#313131] rounded-lg mb-2 h-12 justify-center`}>
           <Picker
             selectedValue={formData.desvio_destino_m}
             onValueChange={(value) =>
@@ -153,7 +153,7 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
 
         <View style={tw`mb-3`}>
           <Text style={tw`text-gray-600 mb-1`}>Dia da Semana</Text>
-          <View style={tw`border-2 border-[#313131] rounded-lg`}>
+          <View style={tw`border-2 border-[#313131] rounded-lg  h-12 justify-center`}>
             <Picker
               selectedValue={formData.diaSemana}
               onValueChange={(itemValue) =>

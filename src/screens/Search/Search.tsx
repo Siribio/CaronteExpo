@@ -56,7 +56,7 @@ export default function Home({ navigation }: Props) {
         </View>
       </View>
 
-      <ScrollView style={tw`flex-1 mt-2`}>
+      <ScrollView style={tw`flex-1 mt-5`}>
         <View style={tw`items-center`}>
           {Array.isArray(caronas) && caronas.length > 0 ? (
             caronas.map(

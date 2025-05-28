@@ -19,31 +19,14 @@ export default function Searchbar({ visible, onOpen, onClose, onSave }: Props) {
     setFiltroVisible(false);
   };
   return (
-    <View style={tw`mx-5`}>
-      <View style={tw`flex-row justify-center gap-x-2 mt-2`}>
-        <View>
-          <TextInput
-            placeholder="Pesquise seu destino"
-            keyboardType="default"
-            maxLength={99}
-            style={tw`w-66 h-12 border-2 rounded-lg border-[#313135]`}
-          ></TextInput>
-        </View>
-        <TouchableOpacity
-          style={tw`w-12 h-12 bg-[#676150] rounded-lg items-center justify-center`}
-        >
-          <MaterialCommunityIcons
-            name={"magnify"}
-            size={40}
-            color={"#F1D014"}
-          />
-        </TouchableOpacity>
-
+    <View style={tw`mx-5 mt-5 `}>
+      <View style={tw``}>
         <TouchableOpacity
           onPress={onOpen}
-          style={tw`w-12 h-12 bg-[#676150] rounded-lg items-center justify-center`}
+          style={tw`p-2 bg-[#6E92C0] rounded-lg items-center justify-center flex-row shadow-lg`}
         >
-          <MaterialCommunityIcons name={"filter"} size={40} color={"#F1D014"} />
+          <Text style={tw`text-base text-[#F5F5F5] font-base pl-2`}> Filtre a carona mais proxima da sua rota </Text>
+          <MaterialCommunityIcons name={"filter"} size={40} color={"#313135"} />
         </TouchableOpacity>
       </View>
 
