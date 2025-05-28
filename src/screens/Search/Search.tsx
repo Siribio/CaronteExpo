@@ -23,6 +23,9 @@ export default function Home({ navigation }: Props) {
         coords_destino: formData.coords_destino,
         desvio_partida_m: Number(formData.desvio_partida_m),
         desvio_destino_m: Number(formData.desvio_destino_m),
+    horario_carona: formData.horario_carona,
+    valor_min: Number(formData.oferta),
+    dia_semana: Number(formData.dia_semana),
       });
       const data = resp.data as any[];
       await AsyncStorage.setItem("@App:caronasBuscadas", JSON.stringify(data));

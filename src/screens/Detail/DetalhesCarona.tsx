@@ -4,7 +4,7 @@ import tw from "twrnc";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes";
 import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import api from "../../services/api";
 import { useEffect } from "react";
 
@@ -46,17 +46,18 @@ type Props = NativeStackScreenProps<RootStackParamList, "DetalhesCarona">;
 
 const DetalhesCarona: React.FC<Props> = ({ route }) => {
   const { carona } = route.params;
-  console.log(carona)
+  console.log(carona);
   const destino = carona.local_destino_passageiro || "Não informado";
   const partida = carona.local_partida_passageiro || "Não informado";
   const agend = carona.dias !== null ? `dia ${carona.dias}` : "semana";
   const chegada = carona.horario_carona || "--:--";
   const valor = (carona.valor_oferta / 100).toFixed(2).replace(".", ",");
   const data = carona.data_criacao ? " X" : " aguardando";
+  const id_motorista = carona.id_motorista;
 
   const navigation = useNavigation();
   const id = carona.id || 1;
-    const [chat, setChat] = useState<any>();
+  const [chat, setChat] = useState<any>();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -70,11 +71,10 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
     fetchUser();
   }, []);
 
-  const chatData = { id: carona.id, id_passageiro: carona.id_passageiro }
+  const chatData = { id: carona.id, id_passageiro: carona.id_passageiro };
   const handleChat = () => {
-   navigation.navigate("Chat", {chatData}) 
-  }
-
+    navigation.navigate("Chat", { chatData });
+  };
 
   return (
     <View style={tw`flex-1 bg-[#F5F5F5]`}>
@@ -132,32 +132,32 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
           </View> */}
         </View>
         <View style={tw`mx-5 mt-5 items-start`}>
-          
-          <TouchableOpacity onPress={() => handleChat()}
-          style={tw` bg-[#14AC00] border-[#14AC00] border  rounded-xl shadow-md p-3`}>
-            <Text style={tw`text-lg font-semibold text-white`}>Abrir chat da carona</Text>
-          </TouchableOpacity>
+          {id_motorista && (
+            <TouchableOpacity
+              onPress={() => handleChat()}
+              style={tw` bg-[#14AC00] border-[#14AC00] border  rounded-xl shadow-md p-3`}
+            >
+              <Text style={tw`text-lg font-semibold text-white`}>
+                Abrir chat da carona
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
         <View style={tw`flex-1 mt-5 justify-end`}>
           <View style={tw`flex-row mx-5 mt-5 h-40 justify-around`}>
-            <View style={tw``}>
-              <TouchableOpacity
-                style={tw`bg-[#F07A7A] border border-[#F07A7A] shadow-md rounded-xl shadow-sm p-3 `}
-              >
-                <Text style={tw`text-xl text-white font-semibold px-5 `}>
-                  Cancelar
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={tw``}>
-              <TouchableOpacity 
-                style={tw` bg-[#6E92C0] border-[#6E92C0] border rounded-xl shadow-md p-3`}
-              >
-                <Text style={tw`text-xl text-white font-semibold `}>
-                  Nova proposta
-                </Text>
-              </TouchableOpacity>
-            </View>
+            {id_motorista && (
+              <>
+                <View style={tw``}>
+                  <TouchableOpacity
+                    style={tw`bg-[#F07A7A] border border-[#F07A7A] shadow-md rounded-xl shadow-sm p-3 `}
+                  >
+                    <Text style={tw`text-xl text-white font-semibold px-5 `}>
+                      Cancelar
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
           </View>
         </View>
       </View>
