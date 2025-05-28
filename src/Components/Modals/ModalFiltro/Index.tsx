@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TextInput, ScrollView,Alert } from "react-native";
+import { Text, View, TextInput, ScrollView, Alert } from "react-native";
 import tw from "twrnc";
 import CustomModal from "../CustomModal";
 import { AddressAutocomplete } from "../../../screens/NewRide/components/addressSearch";
 import { maskBRL, maskTime } from "../../../screens/NewRide/util/masks";
 import { Picker } from "@react-native-picker/picker";
+import api from "../../../services/api";
 
 type Coords = { lat: string; lon: string };
 
@@ -16,8 +17,8 @@ type FiltroData = {
   diaSemana: number;
   coords_partida: Coords;
   coords_destino: Coords;
-  desvio_partida: string;
-  desvio_destino: string;
+  desvio_partida_m: string;
+  desvio_destino_m: string;
 };
 
 type Props = {
@@ -27,12 +28,12 @@ type Props = {
 };
 
 const DESVIOS = [
-  "250 metros",
-  "500 metros",
-  "1 km",
-  "1,5 km",
-  "2 km",
-  "3 km",
+  { label: "250 metros", value: 250 },
+  { label: "500 metros", value: 500 },
+  { label: "1 km", value: 1000 },
+  { label: "1,5 km", value: 1500 },
+  { label: "2 km", value: 2000 },
+  { label: "3 km", value: 3000 },
 ];
 
 export default function ModalFiltro({ visible, onClose, onSave }: Props) {
@@ -44,9 +45,25 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
     diaSemana: 1,
     coords_partida: { lat: "", lon: "" },
     coords_destino: { lat: "", lon: "" },
-    desvio_partida: "250 metros",
-    desvio_destino: "250 metros",
+    desvio_partida_m: "250 metros",
+    desvio_destino_m: "250 metros",
   });
+
+  const [caronas, setCaronas] = useState<any>();
+
+  const fetchUser = async () => {
+    const response = await api.post("/searchCarona", {
+      coords_partida: formData.coords_partida,
+      coords_destino: formData.coords_destino,
+      desvio_partida_m: Number(formData.desvio_partida_m),
+      desvio_destino_m: Number(formData.desvio_destino_m),
+    });
+    console.log(response);
+    if (response.data) {
+      setCaronas(response.data);
+    }
+    console.log(caronas);
+  };
 
   const handleSave = () => {
     if (
@@ -58,6 +75,7 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
 
     console.log("Filtro salvo:", formData);
     if (onSave) onSave(formData);
+    fetchUser();
     onClose();
   };
 
@@ -71,8 +89,8 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
         diaSemana: 1,
         coords_partida: { lat: "", lon: "" },
         coords_destino: { lat: "", lon: "" },
-        desvio_partida: "250 metros",
-        desvio_destino: "250 metros",
+        desvio_partida_m: "250 metros",
+        desvio_destino_m: "250 metros",
       });
     }
   }, [visible]);
@@ -102,16 +120,18 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
           }
         />
 
-        <Text style={tw`text-gray-600 mb-1 mt-2`}>Desvio Máximo da Partida</Text>
+        <Text style={tw`text-gray-600 mb-1 mt-2`}>
+          Desvio Máximo da Partida
+        </Text>
         <View style={tw`border-2 border-[#313131] rounded-lg mb-3`}>
           <Picker
-            selectedValue={formData.desvio_partida}
+            selectedValue={formData.desvio_partida_m}
             onValueChange={(value) =>
-              setFormData((f) => ({ ...f, desvio_partida: value }))
+              setFormData((f) => ({ ...f, desvio_partida_m: value }))
             }
           >
             {DESVIOS.map((d) => (
-              <Picker.Item label={d} value={d} key={d} />
+              <Picker.Item label={d.label} value={d.value} key={d.value} />
             ))}
           </Picker>
         </View>
@@ -132,16 +152,18 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
           }
         />
 
-        <Text style={tw`text-gray-600 mb-1 mt-2`}>Desvio Máximo do Destino</Text>
+        <Text style={tw`text-gray-600 mb-1 mt-2`}>
+          Desvio Máximo do Destino
+        </Text>
         <View style={tw`border-2 border-[#313131] rounded-lg mb-3`}>
           <Picker
-            selectedValue={formData.desvio_destino}
+            selectedValue={formData.desvio_destino_m}
             onValueChange={(value) =>
-              setFormData((f) => ({ ...f, desvio_destino: value }))
+              setFormData((f) => ({ ...f, desvio_destino_m: value }))
             }
           >
             {DESVIOS.map((d) => (
-              <Picker.Item label={d} value={d} key={d} />
+              <Picker.Item label={d.label} value={d.value} key={d.value} />
             ))}
           </Picker>
         </View>
