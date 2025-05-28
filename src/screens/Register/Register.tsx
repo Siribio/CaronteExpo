@@ -74,6 +74,11 @@ export default function Register({ navigation }: Props) {
         return;
       }
 
+      if(response === 422){
+        Alert.alert("Erro", "Unprocessable Entity")
+        return;
+      }
+
       Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
       navigation.navigate("Login");
     } catch (err) {}
@@ -92,7 +97,7 @@ export default function Register({ navigation }: Props) {
         </Text>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-[#313135] mb-1`}>Nome</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Nome<Text style={tw`text-[red]`}> {'*'}</Text></Text>
           <TextInput
             placeholder="Cris"
             value={formData.nome}
@@ -100,6 +105,7 @@ export default function Register({ navigation }: Props) {
             style={tw`border-2 border-[#313135] rounded-lg p-3 bg-white`}
             keyboardType="default"
           />
+          
         </View>
 
         <View style={tw`mb-3`}>
@@ -116,7 +122,7 @@ export default function Register({ navigation }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-[#313135] mb-1`}>CPF</Text>
+          <Text style={tw`text-[#313135] mb-1`}>CPF<Text style={tw`text-[red]`}> {'*'}</Text></Text>
           <TextInput
             placeholder="000.000.000-00"
             value={formData.cpf}
@@ -129,7 +135,7 @@ export default function Register({ navigation }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-[#313135] mb-1`}>Senha</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Senha<Text style={tw`text-[red]`}> {'*'}</Text></Text>
           <TextInput
             value={formData.senha}
             onChangeText={(text) => setFormData({ ...formData, senha: text })}
@@ -141,7 +147,7 @@ export default function Register({ navigation }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-[#313135] mb-1`}>Confirmar Senha</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Confirmar Senha<Text style={tw`text-[red]`}> {'*'}</Text></Text>
           <TextInput
             value={formData.confirmar_senha}
             onChangeText={(text) =>
@@ -168,7 +174,7 @@ export default function Register({ navigation }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-[#313135] mb-1`}>E-mail</Text>
+          <Text style={tw`text-[#313135] mb-1`}>E-mail<Text style={tw`text-[red]`}> {'*'}</Text></Text>
           <TextInput
             placeholder="seu@email.com"
             value={formData.email}
@@ -179,7 +185,7 @@ export default function Register({ navigation }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
-          <Text style={tw`text-[#313135] mb-1`}>Confirme seu E-mail</Text>
+          <Text style={tw`text-[#313135] mb-1`}>Confirme seu E-mail<Text style={tw`text-[red]`}> {'*'}</Text></Text>
           <TextInput
             placeholder="digite seu email novamente"
             value={formData.email}
@@ -222,7 +228,7 @@ export default function Register({ navigation }: Props) {
       {/* Seção de Tipo de Usuário */}
       <View style={tw`mb-6 bg-white p-4 rounded-lg shadow-sm`}>
         <Text style={tw`text-lg font-semibold mb-3 text-[#6E92C0]`}>
-          Tipo de Usuário
+          Tipo de Usuário<Text style={tw`text-[red]`}> {'*'}</Text>
         </Text>
 
         <View style={tw`border-2 border-[#313135] rounded-lg mb-3`}>

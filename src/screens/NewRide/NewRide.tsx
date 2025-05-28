@@ -20,7 +20,7 @@ import { createCarona } from "./service/ride";
 type Props = NativeStackScreenProps<RootStackParamList, "NewRide">;
 
 export default function NewRide({ navigation, route }: Props) {
-  
+
   const [idUsuario, setIdUsuario] = useState<number | null>(null);
   useEffect(() => {
     const fetchUser = async () => {
@@ -35,7 +35,8 @@ export default function NewRide({ navigation, route }: Props) {
 
     fetchUser();
   }, []);
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = useState( {
     local_destino_passageiro: "",
     local_partida_passageiro: "",
     horario_carona: "",
@@ -44,6 +45,18 @@ export default function NewRide({ navigation, route }: Props) {
     coords_partida: { lat: "", lon: "" } as { lat: string; lon: string },
     coords_destino: { lat: "", lon: "" } as { lat: string; lon: string },
   });
+
+  const initialFormData = {
+  local_destino_passageiro: "",
+  local_partida_passageiro: "",
+  horario_carona: "",
+  oferta: "",
+  diaSemana: 1,
+  coords_partida: { lat: "", lon: "" },
+  coords_destino: { lat: "", lon: "" },
+};
+
+
 
   const handleSubmit = async () => {
     if (!formData.local_destino_passageiro || !formData.local_partida_passageiro || !formData.horario_carona) {
@@ -59,17 +72,20 @@ export default function NewRide({ navigation, route }: Props) {
     const response = await createCarona(data) 
     console.log(response)
     Alert.alert("Sucesso", "Carona criada com sucesso!");
+    setFormData(initialFormData);
+
+
   };
 
   return (
     <View style={tw`flex-1 bg-[#F5F5F5]`}>
-      <View style={tw`mt-15 justify-start h-23`}>
+      <View style={tw`mt-15 justify-start h-23 `}>
         <Text style={tw`ml-5 text-4xl font-bold text-[#313135] `}>
           Criar Carona
         </Text>
       </View>
 
-      <ScrollView style={tw` mx-5 p-1`}>
+      <View style={tw`flex-1 mx-5 p-1`}>
         <View style={tw``}>
           <AddressAutocomplete
             label="Partida"
@@ -150,7 +166,7 @@ export default function NewRide({ navigation, route }: Props) {
             style={tw`border-2 border-[#313131] rounded-lg p-3`}
           />
         </View>
-      </ScrollView>
+      </View>
       <View style={tw`items-center`}>
         <TouchableOpacity
           onPress={handleSubmit}
@@ -162,7 +178,7 @@ export default function NewRide({ navigation, route }: Props) {
         </TouchableOpacity>
       </View>
 
-      <View>
+      <View style={tw``} >
         <Navbar />
       </View>
     </View>

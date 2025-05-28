@@ -62,7 +62,9 @@ function AppRoutes() {
           <>
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
             <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+            {user?.tipo_usuario === 2 && (
             <Stack.Screen name="Search" component={Search} options={{ headerShown: false }} />
+)}
             {user?.tipo_usuario === 1 && (
             <Stack.Screen name="NewRide" component={NewRide} options={{ headerShown: false }} />
 )}
