@@ -41,7 +41,7 @@ export default function NewRide({ navigation, route }: Props) {
     local_partida_passageiro: "",
     horario_carona: "",
     oferta: "",
-    diaSemana: 1,
+    dia_semana: 1,
     coords_partida: { lat: "", lon: "" } as { lat: string; lon: string },
     coords_destino: { lat: "", lon: "" } as { lat: string; lon: string },
   });
@@ -51,7 +51,7 @@ export default function NewRide({ navigation, route }: Props) {
   local_partida_passageiro: "",
   horario_carona: "",
   oferta: "",
-  diaSemana: 1,
+  dia_semana: 1,
   coords_partida: { lat: "", lon: "" },
   coords_destino: { lat: "", lon: "" },
 };
@@ -138,9 +138,9 @@ export default function NewRide({ navigation, route }: Props) {
           <Text style={tw`text-gray-600 mb-1`}>Dia da Semana</Text>
           <View style={tw`border-2 border-[#313131] rounded-lg`}>
             <Picker
-              selectedValue={formData.diaSemana}
+              selectedValue={formData.dia_semana}
               onValueChange={(itemValue) =>
-                setFormData({ ...formData, diaSemana: itemValue })
+                setFormData({ ...formData, dia_semana: itemValue })
               }
             >
               <Picker.Item label="Segunda-feira" value={1} />

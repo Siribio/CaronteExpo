@@ -15,7 +15,7 @@ type FiltroData = {
   local_destino_passageiro: string;
   horario_carona: string;
   oferta: string;
-  diaSemana: number;
+  dia_semana: number;
   coords_partida: Coords;
   coords_destino: Coords;
   desvio_partida_m: string;
@@ -43,7 +43,7 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
     local_partida_passageiro: "",
     horario_carona: "",
     oferta: "",
-    diaSemana: 1,
+    dia_semana: 1,
     coords_partida: { lat: "", lon: "" },
     coords_destino: { lat: "", lon: "" },
     desvio_partida_m: "250",
@@ -152,12 +152,25 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
         </View>
 
         <View style={tw`mb-3`}>
+          <Text style={tw`text-gray-600 mb-1`}>Oferta Máxima em R$</Text>
+          <TextInput
+            placeholder="Ex: R$ 10,00"
+            value={formData.oferta}
+            onChangeText={(text) =>
+              setFormData((f) => ({ ...f, oferta: maskBRL(text) }))
+            }
+            keyboardType="numeric"
+            style={tw`border-2 border-[#313131] rounded-lg p-3`}
+          />
+        </View>
+
+        <View style={tw`mb-3`}>
           <Text style={tw`text-gray-600 mb-1`}>Dia da Semana</Text>
           <View style={tw`border-2 border-[#313131] rounded-lg  h-12 justify-center`}>
             <Picker
-              selectedValue={formData.diaSemana}
+              selectedValue={formData.dia_semana}
               onValueChange={(itemValue) =>
-                setFormData((f) => ({ ...f, diaSemana: itemValue }))
+                setFormData((f) => ({ ...f, dia_semana: itemValue }))
               }
             >
               <Picker.Item label="Segunda-feira" value={1} />
@@ -171,18 +184,6 @@ export default function ModalFiltro({ visible, onClose, onSave }: Props) {
           </View>
         </View>
 
-        <View style={tw`mb-3`}>
-          <Text style={tw`text-gray-600 mb-1`}>Oferta Máxima em R$</Text>
-          <TextInput
-            placeholder="Ex: R$ 10,00"
-            value={formData.oferta}
-            onChangeText={(text) =>
-              setFormData((f) => ({ ...f, oferta: maskBRL(text) }))
-            }
-            keyboardType="numeric"
-            style={tw`border-2 border-[#313131] rounded-lg p-3`}
-          />
-        </View>
       </View>
     </CustomModal>
   );

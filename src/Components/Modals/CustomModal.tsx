@@ -1,5 +1,13 @@
 import React from "react";
-import { Modal, View, Text, Pressable, TouchableWithoutFeedback, ScrollView ,KeyboardAvoidingView, Platform} from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  Pressable,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import tw from "twrnc";
 
 type CustomModalProps = {
@@ -26,26 +34,18 @@ const CustomModal = ({
       visible={visible}
       onRequestClose={onClose}
     >
-      <TouchableWithoutFeedback /* impede que toques no fundo fechem o modal */>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={tw`flex-1 justify-center items-center bg-black/50`}>
-         <KeyboardAvoidingView
-            behavior={Platform.OS === "android" ? "padding" : "height"}
-            style={tw`w-90 max-h-[90%]`} // limitar altura para caber teclado
-          >
-          <View style={tw`bg-white p-6 rounded-xl w-90`}>
+          <View style={tw`bg-white rounded-xl p-4 w-90 max-h-[90%]`}>
             {title && (
               <View style={tw`items-center`}>
-                <Text style={tw`text-4xl font-bold mb-4`}>{title}</Text>
+                <Text style={tw`text-2xl font-bold mb-4`}>{title}</Text>
               </View>
             )}
 
-             <ScrollView
-                keyboardShouldPersistTaps="handled"
-              >
-                {children}
-              </ScrollView>
+            <View style={tw``}>{children}</View>
 
-            <View style={tw`flex-row justify-end mt-4`}>
+            <View style={tw`flex-row justify-end mt-2`}>
               {onActionPress && actionButtonText && (
                 <Pressable
                   onPress={onActionPress}
@@ -64,7 +64,6 @@ const CustomModal = ({
               </Pressable>
             </View>
           </View>
-          </KeyboardAvoidingView>
         </View>
       </TouchableWithoutFeedback>
     </Modal>
