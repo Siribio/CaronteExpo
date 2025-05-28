@@ -33,12 +33,12 @@ export default function Navbar() {
 
     fetchUser();
   }, []);
-  const navItems = [
-    { name: "Home", icon: "format-list-bulleted", label: "Caronas" },
-    { name: "Search", icon: "magnify", label: "Pesquisa" },
-    { name: "NewRide", icon: "plus-box", label: "Nova Carona" },
-    { name: "Profile", icon: "account", label: "Perfil" },
-  ];
+const navItems = [
+  { name: "Home", icon: "format-list-bulleted", label: "Caronas" },
+  ...(tipoUsuario === 2 ? [{ name: "Search", icon: "magnify", label: "Pesquisa" }] : []), // Apenas motorista
+  ...(tipoUsuario === 1 ? [{ name: "NewRide", icon: "plus-box", label: "Nova Carona" }] : []), // Apenas passageiro
+  { name: "Profile", icon: "account", label: "Perfil" },
+];
 
   return (
     <View

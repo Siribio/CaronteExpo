@@ -134,7 +134,7 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
         <View style={tw`mx-5 mt-5 items-start`}>
           
           <TouchableOpacity onPress={() => handleChat()}
-          style={tw` bg-[#14AC00] border-[#14AC00] border  rounded-xl shadow-sm p-3`}>
+          style={tw` bg-[#14AC00] border-[#14AC00] border  rounded-xl shadow-md p-3`}>
             <Text style={tw`text-lg font-semibold text-white`}>Abrir chat da carona</Text>
           </TouchableOpacity>
         </View>
@@ -151,7 +151,7 @@ const DetalhesCarona: React.FC<Props> = ({ route }) => {
             </View>
             <View style={tw``}>
               <TouchableOpacity 
-                style={tw` bg-[#6E92C0] border-[#6E92C0] border  rounded-xl shadow-sm p-3`}
+                style={tw` bg-[#6E92C0] border-[#6E92C0] border rounded-xl shadow-md p-3`}
               >
                 <Text style={tw`text-xl text-white font-semibold `}>
                   Nova proposta
