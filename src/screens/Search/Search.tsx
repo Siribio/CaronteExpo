@@ -22,7 +22,15 @@ export default function Home({navigation}: Props) {
       
       <ScrollView style={tw`flex-1 mt-2`}>
         <View style={tw`items-center`}>
-
+          {Array.isArray(caronas?.valor) && caronas.valor.length > 0 ? (
+            caronas.valor.map((carona: any) => (
+              <CardCarona key={carona.id} carona={carona} />
+            ))
+          ) : (
+            <Text style={tw`text-gray-500 mt-10`}>
+              Nenhuma carona disponível no momento.
+            </Text>
+          )}
         </View>
       </ScrollView>
 
