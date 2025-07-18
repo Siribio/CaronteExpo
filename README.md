@@ -1,4 +1,7 @@
-# Caronte – Caronas Solidárias
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/509ec516-9179-4ca0-840c-48fed1698a67" width="150" />
+</div>
+
 <hr>
 Caronte é um aplicativo desenvolvido como projeto de TCC com o objetivo de promover o impacto social por meio da mobilidade inclusiva. Ele foi pensado para conectar motoristas voluntários a passageiros com locomoção reduzida, oferecendo uma alternativa de transporte segura, acessível e empática.
 
@@ -29,6 +32,20 @@ Facilitar o transporte de pessoas que utilizam:
 :heavy_check_mark: As caronas são solidárias, ou seja, o valor da corrida é apenas uma ajuda de custo e é definido pelo próprio passageiro.
 
 ## Aplicação
+<table >
+  <tr>
+    <th>Motorista</th>
+    <th>Passageiro</th>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/b3271a36-ab19-4a13-8549-65476e731ffd" width="150" />
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/a110dc73-a907-4c1b-bd21-724b7610da95" width="150" />
+    </td>
+  </tr>
+</table>
 
 
 ## Ferramentas utilizadas
